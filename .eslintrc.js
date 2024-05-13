@@ -1,6 +1,3 @@
 module.exports = {
-  extends: ["react-app", "react-app/jest"],
-  rules: {
-    "no-console": 1,
-  },
+    extends: ['react-app', 'react-app/jest'],
 };
