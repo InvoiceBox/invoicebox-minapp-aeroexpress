@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Loader } from 'src/components';
+// import { Loader } from 'src/components';
 import { useTariffs } from './hooks/useTariffs';
 import { useConnection } from './hooks/useConnection';
 import { useInitialData } from './hooks/useInitialData';
@@ -15,7 +15,8 @@ export const App: FC<TProps> = () => {
     const initialData = useInitialData();
     const { tariffs, isTariffsInitialized } = useTariffs(handleError);
 
-    if (!isTariffsInitialized || !initialData) return <Loader />;
+    // TODO
+    if (!isTariffsInitialized || !initialData) return null; // <Loader />;
 
     return <AppInner events={events} initialData={initialData} tariffs={tariffs} />;
 };
