@@ -1,4 +1,4 @@
-import { defaultAbstractPalette } from '@invoicebox/ui';
+import { breakpoints, defaultAbstractPalette } from '@invoicebox/ui';
 import hexToRgba from 'hex-to-rgba';
 import styled from 'styled-components';
 

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import banerUrl from './assets/baner.svg';
+import { breakpoints } from '@invoicebox/ui';
 
 export const Wrapper = styled.div`
     min-height: 100vh;
@@ -22,7 +23,7 @@ export const Content = styled.div`
     margin: auto;
     max-width: 1388px;
 
-    @media ${({ theme }) => theme.breakpoints.md} {
+    @media ${breakpoints.md} {
         padding: 0 16px;
     }
 
