@@ -1,5 +1,9 @@
-import { apiDateFormatter } from 'src/utils/formatters';
-import yup from 'src/utils/validations';
+import yup from 'yup';
+
+const apiDateFormatter = (date: Date) => {
+    const toDigits = (num: number) => `0${num}`.slice(-2);
+    return `${new Date().getFullYear()}-${toDigits(date.getMonth() + 1)}-${toDigits(date.getDate())}`;
+};
 
 export const MIN_TICKETS_AMOUNT = 1;
 

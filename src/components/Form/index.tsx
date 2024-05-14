@@ -1,10 +1,10 @@
 import React, { FC, MouseEvent, useCallback, useMemo, useState } from 'react';
 import { Form as LibForm } from 'react-final-form';
-import { useValidationSchema } from 'src/hooks';
 import { TInnerForm, TOutterForm, TTariff, getInitialValues, normalizeTo, validationSchema } from './types';
 import { logic } from './logic';
 import { FormInner } from './components/FormInner';
 import * as S from './styles';
+import useValidationSchema from '../../hooks/useValidationSchema';
 
 export type TProps = {
     onSubmit: (form: TOutterForm) => Promise<void>;

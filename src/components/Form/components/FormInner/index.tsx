@@ -4,12 +4,12 @@ import { SelectField } from 'src/stories/common/formFields/SelectField';
 import { PositiveIntegerField } from 'src/stories/common/formFields/PositiveIntegerField';
 import { useForm } from 'react-final-form';
 import { Divider, SecondaryButton, WarningIcon } from '@invoicebox/ui';
-import { useMobile } from 'src/hooks';
 import * as S from './styles';
 import { FIELDS, TInnerForm, TTariff } from '../../types';
 import { logic } from '../../logic';
 import { Caption } from '../../../Caption';
 import { Sum } from '../../../Sum';
+import { useMobile } from '../../../../hooks/useMedia';
 
 export type TProps = {
     minDate: Date;
@@ -63,7 +63,10 @@ export const FormInner: FC<TProps> = ({
         [tariffs, departDate],
     );
 
-    const selectedTariff = useMemo(() => tariffs.find((tariff) => tariff.id === tariffId), [tariffId, tariffs]);
+    const selectedTariff = useMemo(
+        () => tariffs.find((tariff) => tariff.id === tariffId),
+        [tariffId, tariffs],
+    );
 
     const sumForDisplay = useMemo(
         () => logic.getSumForDisplay(selectedTariff, ticketsCount),
@@ -78,7 +81,12 @@ export const FormInner: FC<TProps> = ({
                 </S.Description>
                 <S.Controls>
                     <S.DateWrapper>
-                        <DateField label="Дата поездки" name={FIELDS.departDate} minDate={minDate} maxDate={maxDate} />
+                        <DateField
+                            label="Дата поездки"
+                            name={FIELDS.departDate}
+                            minDate={minDate}
+                            maxDate={maxDate}
+                        />
                     </S.DateWrapper>
                     <S.TariffWrapper>
                         <SelectField
@@ -117,7 +125,12 @@ export const FormInner: FC<TProps> = ({
                         <Caption onLink={onLink} />
                     </S.CaptionWrapper>
                 </S.SummaryWrapper>
-                <SecondaryButton disabled={!valid} isLoading={isSubmitting} type="submit" fullWidth={isMobile}>
+                <SecondaryButton
+                    disabled={!valid}
+                    isLoading={isSubmitting}
+                    type="submit"
+                    fullWidth={isMobile}
+                >
                     {buttonText}
                 </SecondaryButton>
             </div>
