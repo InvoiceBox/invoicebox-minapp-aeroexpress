@@ -20,7 +20,10 @@ const args: TProps = {
         action('submit')(...props);
     },
     initialTariffs: dummyOptions,
-    onLink: action('onLink'),
+    onLink: (event) => {
+        event.preventDefault();
+        action('onLink')();
+    },
     tariffsHref: 'https://example.com/aeroexpress/tariffs',
     buttonText: 'Добавить в заказ',
 };

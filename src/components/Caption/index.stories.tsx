@@ -12,6 +12,9 @@ export default meta;
 
 export const Default: StoryObj<typeof Caption> = {
     args: {
-        onLink: action('onLink'),
+        onLink: (event) => {
+            event.preventDefault();
+            action('onLink')();
+        },
     },
 };

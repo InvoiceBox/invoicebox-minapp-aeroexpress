@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useIntl } from 'react-intl';
 import { TTariff } from '../../../network/types';
 import { fetchTariffsRequest } from '../../../network/http';
 
 export const useTariffs = () => {
-    const intl = useIntl();
-
     const [tariffs, setTariffs] = useState<TTariff[]>([]);
     const [isInitialized, setInitializedFlag] = useState(false);
 
@@ -16,7 +13,7 @@ export const useTariffs = () => {
                 // TODO
             })
             .finally(() => setInitializedFlag(true));
-    }, [intl]);
+    }, []);
 
     return { tariffs, isInitialized };
 };
