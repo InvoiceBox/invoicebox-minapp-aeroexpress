@@ -1,4 +1,4 @@
-import yup from 'yup';
+import * as yup from 'yup';
 
 const apiDateFormatter = (date: Date) => {
     const toDigits = (num: number) => `0${num}`.slice(-2);
