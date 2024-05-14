@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useUnupdatableHandler } from 'src/hooks/useUnupdatableHandler';
-import { fetchTariffsRequest } from 'src/store/Aeroexpress/http';
-import { TTariff } from 'src/store/Aeroexpress/types';
 import { TEvents } from './useEvents';
+import { fetchTariffsRequest } from '../../../network/http';
+import { TTariff } from '../../../network/types';
 
 export const useTariffs = (onError: TEvents['handleError']) => {
     const [tariffs, setTariffs] = useState<TTariff[]>([]);

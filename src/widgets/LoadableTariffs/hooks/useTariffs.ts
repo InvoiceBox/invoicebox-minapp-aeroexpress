@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { toast } from 'react-toastify';
-import { fetchTariffsRequest } from 'src/store/Aeroexpress/http';
-import { TTariff } from 'src/store/Aeroexpress/types';
+import { TTariff } from '../../../network/types';
+import { fetchTariffsRequest } from '../../../network/http';
 
 export const useTariffs = () => {
     const intl = useIntl();
