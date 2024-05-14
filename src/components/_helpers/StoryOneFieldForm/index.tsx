@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import { Form } from 'react-final-form';
 import { action } from '@storybook/addon-actions';
-import { Button } from 'src/components';
+import { SecondaryButton } from '@invoicebox/ui';
 
 export const FIELD_NAME = 'field';
 
@@ -16,9 +16,9 @@ export const StoryOneFieldForm: FC<TProps> = ({ children, initialValue }) => (
             <form onSubmit={handleSubmit}>
                 {children}
                 <div style={{ marginTop: 20 }}>
-                    <Button type="primary" htmlType="submit">
+                    <SecondaryButton element="button" type="submit">
                         Done
-                    </Button>
+                    </SecondaryButton>
                 </div>
             </form>
         )}
