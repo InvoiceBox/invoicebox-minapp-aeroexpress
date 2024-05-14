@@ -10,9 +10,9 @@ export type TProps = {
 export const Tariff: FC<TProps> = ({ title, sum, descripion }) => (
     <S.Wrapper>
         <S.TitleWrapper>
-            <S.Title>{title}</S.Title>
-            <S.Sum>{sum} ₽</S.Sum>
+            <S.Title variant="headline3">{title}</S.Title>
+            <S.Sum variant="headline6">{sum} ₽</S.Sum>
         </S.TitleWrapper>
-        <S.Description dangerouslySetInnerHTML={{ __html: descripion }} />
+        <S.Description variant="bodyMRegular" dangerouslySetInnerHTML={{ __html: descripion }} />
     </S.Wrapper>
 );
