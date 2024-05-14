@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Sum } from '.';
 
 const meta: Meta<typeof Sum> = {
-    title: 'miniApp/aeroexpress/components/Sum',
+    title: 'components/Sum',
     component: Sum,
     tags: ['autodocs'],
 };

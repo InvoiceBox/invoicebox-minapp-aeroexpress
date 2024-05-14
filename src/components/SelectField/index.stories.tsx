@@ -5,7 +5,7 @@ import { selectOptions } from '../_helpers/selectOptions';
 import { FIELD_NAME, StoryOneFieldForm } from '../_helpers/StoryOneFieldForm';
 
 const meta: Meta<typeof SelectField> = {
-    title: 'common/formFields/SelectField',
+    title: 'components/SelectField',
     component: SelectField,
     tags: ['autodocs'],
 };

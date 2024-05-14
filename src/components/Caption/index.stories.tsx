@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { Caption } from '.';
 
 const meta: Meta<typeof Caption> = {
-    title: 'miniApp/aeroexpress/components/Caption',
+    title: 'components/Caption',
     component: Caption,
     tags: ['autodocs'],
 };

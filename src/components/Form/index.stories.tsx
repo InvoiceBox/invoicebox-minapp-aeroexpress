@@ -5,7 +5,7 @@ import { Form, TProps } from '.';
 import { dummyOptions } from './dummyOptions';
 
 const meta: Meta<typeof Form> = {
-    title: 'miniApp/aeroexpress/components/Form',
+    title: 'components/Form',
     component: Form,
     tags: ['autodocs'],
 };

@@ -4,7 +4,7 @@ import { PositiveIntegerField, TProps } from '.';
 import { FIELD_NAME, StoryOneFieldForm } from '../_helpers/StoryOneFieldForm';
 
 const meta: Meta<typeof PositiveIntegerField> = {
-    title: 'common/formFields/PositiveIntegerField',
+    title: 'components/PositiveIntegerField',
     component: PositiveIntegerField,
     tags: ['autodocs'],
 };

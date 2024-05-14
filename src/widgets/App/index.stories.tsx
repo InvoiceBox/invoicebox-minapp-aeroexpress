@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { App, TProps } from '.';
 
 const meta: Meta<typeof App> = {
-    title: 'miniApp/aeroexpress/widgets/App',
+    title: 'widgets/App',
     component: App,
     tags: ['autodocs'],
 };
