@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import * as S from './styles';
 import { Tariff } from '../Tariff';
-import { BgCard } from '../BgCard';
+import { BgCard } from '@invoicebox/ui';
 
 export type TProps = {
     tariffs: {
