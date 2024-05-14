@@ -1,8 +1,9 @@
-import { Typography } from '@invoicebox/ui';
+import { Typography, defaultAbstractPalette } from '@invoicebox/ui';
+import hexToRgba from 'hex-to-rgba';
 import styled from 'styled-components';
 
 export const Wrapper = styled(Typography)`
-    color: ${({ theme }) => theme.body.colors.primary(0.5)};
+    color: ${hexToRgba(defaultAbstractPalette.primary, 0.5)};
 
     a {
         text-decoration: underline;

@@ -1,4 +1,5 @@
-import { Typography } from '@invoicebox/ui';
+import { Typography, defaultAbstractPalette } from '@invoicebox/ui';
+import hexToRgba from 'hex-to-rgba';
 import styled from 'styled-components';
 
 /* controls */
@@ -51,7 +52,7 @@ export const CountWrapper = styled.div`
 /* other */
 
 export const Description = styled(Typography)`
-    color: ${({ theme }) => theme.body.colors.primary(0.5)};
+    color: ${hexToRgba(defaultAbstractPalette.primary, 0.5)};
     padding-bottom: 20px;
 
     @media ${({ theme }) => theme.breakpoints.sm} {
@@ -86,7 +87,7 @@ export const SummaryWrapper = styled.div`
 
 export const Total = styled(Typography)<{ $isSum: boolean }>`
     display: none;
-    color: ${({ theme }) => theme.body.colors.primary()};
+    color: ${defaultAbstractPalette.primary};
 
     @media ${({ theme }) => theme.breakpoints.sm} {
         display: ${({ $isSum }) => ($isSum ? 'block' : 'none')};

@@ -1,3 +1,5 @@
+import { defaultAbstractPalette } from '@invoicebox/ui';
+import hexToRgba from 'hex-to-rgba';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
@@ -27,17 +29,17 @@ export const TitleWrapper = styled.div`
 `;
 
 export const Title = styled.div`
-    color: ${({ theme }) => theme.body.colors.primary()};
+    color: ${defaultAbstractPalette.primary};
     ${({ theme }) => theme.helpers.getTypography('title1')}
 `;
 
 export const Sum = styled.div`
-    color: ${({ theme }) => theme.body.colors.primary()};
+    color: ${defaultAbstractPalette.primary};
     ${({ theme }) => theme.helpers.getTypography('title1')}
     font-weight: 500;
 `;
 
 export const Description = styled.div`
-    color: ${({ theme }) => theme.body.colors.primary(0.5)};
+    color: ${hexToRgba(defaultAbstractPalette.primary, 0.5)};
     ${({ theme }) => theme.helpers.getTypography('body')}
 `;
