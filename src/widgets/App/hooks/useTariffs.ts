@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useUnupdatableHandler } from 'src/hooks/useUnupdatableHandler';
+import { useUnupdatableHandler } from '@invoicebox/ui';
 import { TEvents } from './useEvents';
 import { fetchTariffsRequest } from '../../../network/http';
 import { TTariff } from '../../../network/types';

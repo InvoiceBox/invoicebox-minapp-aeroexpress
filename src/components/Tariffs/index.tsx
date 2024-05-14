@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { BgCard } from 'src/stories/common/BgCard';
 import * as S from './styles';
 import { Tariff } from '../Tariff';
+import { BgCard } from '../BgCard';
 
 export type TProps = {
     tariffs: {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useUnupdatableHandler } from 'src/hooks/useUnupdatableHandler';
+import { useUnupdatableHandler } from '@invoicebox/ui';
 import { TEvents } from '../../../hooks/useEvents';
 
 export const useHeight = (fullHeight: boolean, onHeightChange: TEvents['handleHeightChange']) => {

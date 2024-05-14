@@ -1,9 +1,5 @@
 import React, { FC, MouseEvent, useCallback, useMemo } from 'react';
-import { ROUTES } from 'src/utils/routes';
-import { aeroexpressLogic } from 'src/store/Aeroexpress/logic';
 import { invoiceboxMinapp } from '@invoicebox/minapp-sdk';
-import { TTariff } from 'src/store/Aeroexpress/types';
-import { Form } from 'src/stories/miniApps/aeroexpress/components/Form';
 import { TInitialData } from '../../hooks/useInitialData';
 import { useHeight } from './hooks/useHeight';
 import { useSuborderFlag } from './hooks/useSuborderFlag';
@@ -11,6 +7,9 @@ import { useAirportCheck } from './hooks/useAirportCheck';
 import { useSubmitHandler } from './hooks/useSubmitHandler';
 import * as S from './styles';
 import { TEvents } from '../../hooks/useEvents';
+import { aeroexpressLogic } from '../../../../network/logic';
+import { TTariff } from '../../../../network/types';
+import { Form } from '../../../../components/Form';
 
 export type TProps = {
     initialData: TInitialData;
@@ -44,7 +43,8 @@ export const AppInner: FC<TProps> = ({ initialData, tariffs, events }) => {
                 initialTariffs={tariffs}
                 onLink={handleLink}
                 tariffsHref={aeroexpressLogic.appendEnv(
-                    `${invoiceboxMinapp.getParentOrigin()}/${ROUTES.aeroexpressTariffs}`,
+                    // DOTO
+                    `${invoiceboxMinapp.getParentOrigin()}/aeroexpressTariffs`,
                 )}
                 buttonText={isSuborder ? 'Добавить в заказ' : 'Купить билет'}
             />

@@ -1,7 +1,7 @@
 import { invoiceboxMinapp } from '@invoicebox/minapp-sdk';
 import { useEffect } from 'react';
-import { useUnupdatableHandler } from 'src/hooks/useUnupdatableHandler';
 import { TEvents } from '../../../hooks/useEvents';
+import { useUnupdatableHandler } from '@invoicebox/ui';
 
 const MOSKOW_AIRPORTS = ['VKO', 'DME', 'SVO'];
 const AIRPORT_KEY = 'iataCode';
