@@ -12,7 +12,7 @@ export const Baner = styled.div`
     background-position: center top;
     height: 74px;
 
-    @media ${({ theme }) => theme.breakpoints.sm} {
+    @media ${breakpoints.sm} {
         display: none;
     }
 `;
@@ -26,7 +26,7 @@ export const Content = styled.div`
         padding: 0 16px;
     }
 
-    @media ${({ theme }) => theme.breakpoints.sm} {
+    @media ${breakpoints.sm} {
         padding-top: 16px;
     }
 `;

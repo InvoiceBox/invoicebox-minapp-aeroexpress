@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
         background-color: #df1931;
     }
 
-    @media ${({ theme }) => theme.breakpoints.sm} {
+    @media ${breakpoints.sm} {
         padding-left: 22px;
     }
 `;

@@ -1,4 +1,4 @@
-import { Typography, defaultAbstractPalette } from '@invoicebox/ui';
+import { Typography, breakpoints, defaultAbstractPalette } from '@invoicebox/ui';
 import hexToRgba from 'hex-to-rgba';
 import styled from 'styled-components';
 
@@ -18,7 +18,7 @@ export const Controls = styled.div`
     gap: 20px;
     margin-bottom: 28px;
 
-    @media ${({ theme }) => theme.breakpoints.sm} {
+    @media ${breakpoints.sm} {
         grid-template-columns: 5fr 3fr;
         grid-template-rows: max-content max-content;
         grid-template-areas:
@@ -55,7 +55,7 @@ export const Description = styled(Typography)`
     color: ${hexToRgba(defaultAbstractPalette.primary, 0.5)};
     padding-bottom: 20px;
 
-    @media ${({ theme }) => theme.breakpoints.sm} {
+    @media ${breakpoints.sm} {
         padding-bottom: 16px;
     }
 `;
@@ -63,7 +63,7 @@ export const Description = styled(Typography)`
 export const DividerWrapper = styled.div`
     margin-bottom: 21px;
 
-    @media ${({ theme }) => theme.breakpoints.sm} {
+    @media ${breakpoints.sm} {
         display: none;
     }
 `;
@@ -76,7 +76,7 @@ export const SummaryWrapper = styled.div`
     justify-content: space-between;
     column-gap: 30px;
 
-    @media ${({ theme }) => theme.breakpoints.sm} {
+    @media ${breakpoints.sm} {
         flex-direction: row;
         flex-wrap: wrap;
         row-gap: 8px;
@@ -89,7 +89,7 @@ export const Total = styled(Typography)<{ $isSum: boolean }>`
     display: none;
     color: ${defaultAbstractPalette.primary};
 
-    @media ${({ theme }) => theme.breakpoints.sm} {
+    @media ${breakpoints.sm} {
         display: ${({ $isSum }) => ($isSum ? 'block' : 'none')};
     }
 `;
@@ -97,13 +97,13 @@ export const Total = styled(Typography)<{ $isSum: boolean }>`
 export const SumWrapper = styled.div<{ $isSum: boolean }>`
     flex-shrink: 0;
 
-    @media ${({ theme }) => theme.breakpoints.sm} {
+    @media ${breakpoints.sm} {
         display: ${({ $isSum }) => ($isSum ? 'block' : 'none')};
     }
 `;
 
 export const CaptionWrapper = styled.div`
-    @media ${({ theme }) => theme.breakpoints.sm} {
+    @media ${breakpoints.sm} {
         width: 100%;
     }
 `;
