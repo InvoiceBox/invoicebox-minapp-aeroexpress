@@ -1,7 +1,4 @@
 import React, { FC, MouseEvent, useEffect, useMemo, useRef } from 'react';
-import { DateField } from 'src/stories/common/formFields/DateField';
-import { SelectField } from 'src/stories/common/formFields/SelectField';
-import { PositiveIntegerField } from 'src/stories/common/formFields/PositiveIntegerField';
 import { useForm } from 'react-final-form';
 import { Divider, SecondaryButton, WarningIcon } from '@invoicebox/ui';
 import * as S from './styles';
@@ -10,6 +7,9 @@ import { logic } from '../../logic';
 import { Caption } from '../../../Caption';
 import { Sum } from '../../../Sum';
 import { useMobile } from '../../../../hooks/useMedia';
+import { DateField } from '../../../DateField';
+import { SelectField } from '../../../SelectField';
+import { PositiveIntegerField } from '../../../PositiveIntegerField';
 
 export type TProps = {
     minDate: Date;
