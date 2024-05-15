@@ -11,7 +11,7 @@ export const useTariffs = (onError: TEvents['handleError']) => {
 
     useEffect(() => {
         fetchTariffsRequest()
-            .then((resp) => setTariffs(resp.data.filter((tariff) => tariff.active)))
+            .then(setTariffs)
             .catch(() => handleError())
             .finally(() => setInitializedFlag(true));
     }, [handleError]);

@@ -24,7 +24,7 @@ export const useSubmitHandler = (
                 phone: userPhone,
             })
                 .then((response) => {
-                    handleDone(response.data.url);
+                    handleDone(response.url);
                 })
                 .catch(() => handleError());
         },

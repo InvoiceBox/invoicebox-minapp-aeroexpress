@@ -21,10 +21,13 @@ export const fetchTariffsRequest = (): Promise<TTariff[]> =>
         })
         .then((response) => response.json() as Promise<ICommonResponse<TTariff[], void>>)
         .then((response) => {
-            const data = response.data.map((item) =>
-                // @ts-ignore
-                camelcaseKeys(item),
-            ) as TTariff[];
+            const data = response.data
+                .map(
+                    (item) =>
+                        // @ts-ignore
+                        camelcaseKeys(item) as TTariff,
+                )
+                .filter((tariff) => tariff.active);
             return data;
         });
 

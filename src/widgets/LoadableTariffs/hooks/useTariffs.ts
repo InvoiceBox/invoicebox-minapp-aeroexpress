@@ -14,7 +14,7 @@ export const useTariffs = ({ fetchTariffs }: TProps) => {
 
     useEffect(() => {
         handleFetchTariffs()
-            .then((tariffs) => setTariffs(tariffs.filter((tariff) => tariff.active)))
+            .then(setTariffs)
             .catch(() => {
                 // TODO
             })
