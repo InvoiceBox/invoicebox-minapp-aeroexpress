@@ -2,10 +2,13 @@ import { Select, TSelectProps } from '@invoicebox/ui';
 import React, { FC } from 'react';
 import { Field, FieldProps } from 'react-final-form';
 
-type TInitialValue = string | number | null;
-type TValueAfterSelect = string | number;
+type TInitialValue = number | null;
+type TValueAfterSelect = number;
 
-export type TProps = Omit<TSelectProps<TValueAfterSelect>, 'value' | 'onChange' | 'hasError' | 'onBlur' | 'onFocus'> &
+export type TProps = Omit<
+    TSelectProps<TValueAfterSelect>,
+    'value' | 'onChange' | 'hasError' | 'onBlur' | 'onFocus'
+> &
     Pick<FieldProps<any, any>, 'name'>;
 
 export const SelectField: FC<TProps> = ({ name, ...controlProps }) => {
