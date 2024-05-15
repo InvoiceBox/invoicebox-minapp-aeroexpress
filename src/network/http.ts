@@ -13,7 +13,7 @@ export interface ICommonResponse<D, E = any> {
     };
 }
 
-export const fetchTariffsRequest = () =>
+export const fetchTariffsRequest = (): Promise<TTariff[]> =>
     fetch(`${aeroexpressLogic.getBaseUrl()}/tariffs`)
         .then((response) => {
             if (response.ok) return response;
