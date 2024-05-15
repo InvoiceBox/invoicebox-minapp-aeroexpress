@@ -2,7 +2,7 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { Form, TProps } from '.';
-import { dummyOptions } from './dummyOptions';
+import { dummyTariffs } from '../../network/dummy';
 
 const meta: Meta<typeof Form> = {
     title: 'components/Form',
@@ -19,7 +19,7 @@ const args: TProps = {
         });
         action('submit')(...props);
     },
-    initialTariffs: dummyOptions,
+    initialTariffs: dummyTariffs,
     onLink: (event) => {
         event.preventDefault();
         action('onLink')();
