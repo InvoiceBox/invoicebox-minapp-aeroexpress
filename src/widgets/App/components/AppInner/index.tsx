@@ -7,7 +7,7 @@ import { useAirportCheck } from './hooks/useAirportCheck';
 import { useSubmitHandler } from './hooks/useSubmitHandler';
 import * as S from './styles';
 import { TEvents } from '../../hooks/useEvents';
-import { aeroexpressLogic } from '../../../../network/logic';
+import { envLogic } from '../../../../network/logic';
 import { TTariff } from '../../../../network/types';
 import { Form } from '../../../../components/Form';
 
@@ -42,7 +42,7 @@ export const AppInner: FC<TProps> = ({ initialData, tariffs, events }) => {
                 onSubmit={handleSubmit}
                 initialTariffs={tariffs}
                 onLink={handleLink}
-                tariffsHref={aeroexpressLogic.appendEnv(
+                tariffsHref={envLogic.appendEnv(
                     // DOTO
                     `${invoiceboxMinapp.getParentOrigin()}/aeroexpressTariffs`,
                 )}

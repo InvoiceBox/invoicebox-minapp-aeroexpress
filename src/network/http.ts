@@ -1,7 +1,7 @@
 import camelcaseKeys from 'camelcase-keys';
 import snakecaseKeys from 'snakecase-keys';
 import { TCreateOrder, TCreateOrderResponse, TTariff } from './types';
-import { aeroexpressLogic } from './logic';
+import { envLogic } from './logic';
 
 export interface ICommonResponse<D, E = any> {
     data: D;
@@ -14,7 +14,7 @@ export interface ICommonResponse<D, E = any> {
 }
 
 export const fetchTariffsRequest = (): Promise<TTariff[]> =>
-    fetch(`${aeroexpressLogic.getBaseUrl()}/tariffs`)
+    fetch(`${envLogic.getBaseUrl()}/tariffs`)
         .then((response) => {
             if (response.ok) return response;
             throw new Error(response.statusText);
@@ -30,7 +30,7 @@ export const fetchTariffsRequest = (): Promise<TTariff[]> =>
         });
 
 export const createOrderRequest = (data: TCreateOrder) =>
-    fetch(`${aeroexpressLogic.getBaseUrl()}/orders`, {
+    fetch(`${envLogic.getBaseUrl()}/orders`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

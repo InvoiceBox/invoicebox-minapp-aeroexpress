@@ -8,7 +8,7 @@ const ENV_PARAM_NAME = 'env';
 const DEV_PARAM_VALUE = 'dev';
 const STAGE_PARAM_VALUE = 'stage';
 
-class AeroexpressLogic {
+class EnvLogic {
     private getEnv() {
         return new URL(window.location.href).searchParams.get(ENV_PARAM_NAME);
     }
@@ -35,4 +35,4 @@ class AeroexpressLogic {
     }
 }
 
-export const aeroexpressLogic = new AeroexpressLogic();
+export const envLogic = new EnvLogic();
