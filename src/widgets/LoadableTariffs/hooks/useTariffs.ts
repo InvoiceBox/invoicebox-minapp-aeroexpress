@@ -1,19 +1,25 @@
 import { useEffect, useState } from 'react';
 import { TTariff } from '../../../network/types';
-import { fetchTariffsRequest } from '../../../network/http';
+import { useUnupdatableHandler } from '@invoicebox/ui';
 
-export const useTariffs = () => {
+type TProps = {
+    fetchTariffs: () => Promise<TTariff[]>;
+};
+
+export const useTariffs = ({ fetchTariffs }: TProps) => {
     const [tariffs, setTariffs] = useState<TTariff[]>([]);
     const [isInitialized, setInitializedFlag] = useState(false);
 
+    const handleFetchTariffs = useUnupdatableHandler(fetchTariffs);
+
     useEffect(() => {
-        fetchTariffsRequest()
-            .then((resp) => setTariffs(resp.data.filter((tariff) => tariff.active)))
+        handleFetchTariffs()
+            .then((tariffs) => setTariffs(tariffs.filter((tariff) => tariff.active)))
             .catch(() => {
                 // TODO
             })
             .finally(() => setInitializedFlag(true));
-    }, []);
+    }, [handleFetchTariffs]);
 
     return { tariffs, isInitialized };
 };

@@ -26,7 +26,7 @@ export const fetchTariffsRequest = () =>
                 camelcaseKeys(item),
             ) as TTariff[];
             response.data = data;
-            return response;
+            return response.data;
         });
 
 export const createOrderRequest = (data: TCreateOrder) =>
