@@ -7,7 +7,7 @@ import { useAirportCheck } from './hooks/useAirportCheck';
 import { useSubmitHandler } from './hooks/useSubmitHandler';
 import * as S from './styles';
 import { TEvents } from '../../hooks/useEvents';
-import { envLogic } from '../../../../network/logic';
+import { envLogic } from '../../../../network/envLogic';
 import { TTariff } from '../../../../network/types';
 import { Form } from '../../../../components/Form';
 
