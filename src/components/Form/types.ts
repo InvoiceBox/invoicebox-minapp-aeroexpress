@@ -1,10 +1,5 @@
 import * as yup from 'yup';
 
-const apiDateFormatter = (date: Date) => {
-    const toDigits = (num: number) => `0${num}`.slice(-2);
-    return `${new Date().getFullYear()}-${toDigits(date.getMonth() + 1)}-${toDigits(date.getDate())}`;
-};
-
 export const MIN_TICKETS_AMOUNT = 1;
 
 export enum FIELDS {
@@ -25,11 +20,16 @@ export type TOutterForm = {
     ticketsCount: number;
 };
 
-export const normalizeTo = ({ departDate, tariffId, ticketsCount }: TInnerForm): TOutterForm => ({
-    departDate: apiDateFormatter(departDate),
-    tariffId: tariffId as number,
-    ticketsCount: ticketsCount as number,
-});
+export const normalizeTo = ({ departDate, tariffId, ticketsCount }: TInnerForm): TOutterForm => {
+    const toDigits = (num: number) => `0${num}`.slice(-2);
+    const normalizedDepartDate = `${new Date().getFullYear()}-${toDigits(departDate.getMonth() + 1)}-${toDigits(departDate.getDate())}`;
+
+    return {
+        departDate: normalizedDepartDate,
+        tariffId: tariffId as number,
+        ticketsCount: ticketsCount as number,
+    };
+};
 
 export const getInitialValues = (minDate: Date): TInnerForm => ({
     departDate: minDate,
