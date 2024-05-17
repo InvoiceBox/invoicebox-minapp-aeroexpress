@@ -30,3 +30,15 @@ export const InnerAvailableSuccessFetchSuccessSubmit: StoryObj<TProps> = {
             }),
     },
 };
+
+export const InnerUnavailable: StoryObj<TProps> = {
+    args: {
+        fetchTariffs: () => Promise.resolve(dummyTariffs),
+        createOrder: () =>
+            new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve({ url: '/some-url', method: 'GET' });
+                }, 1000);
+            }),
+    },
+};

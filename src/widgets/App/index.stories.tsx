@@ -25,6 +25,7 @@ export default meta;
 enum USE_CASES {
     real = 'widgets-app-inner--inner-available-real-fetch-real-submit',
     success = 'widgets-app-inner--inner-available-success-fetch-success-submit',
+    unavailable = 'widgets-app-inner--inner-unavailable',
 }
 
 const IFRAME_ID = 'IFRAME_ID';
@@ -37,9 +38,10 @@ const sendMessage = (message: unknown) => {
 type TIFrameProps = {
     initialUseCase: USE_CASES;
     initialOrderContainerId?: string;
+    initialMetaData?: unknown;
 };
 
-const IFrame: FC<TIFrameProps> = ({ initialUseCase, initialOrderContainerId }) => {
+const IFrame: FC<TIFrameProps> = ({ initialUseCase, initialOrderContainerId, initialMetaData }) => {
     const [height, setHeight] = useState(287);
 
     useEffect(() => {
@@ -71,7 +73,7 @@ const IFrame: FC<TIFrameProps> = ({ initialUseCase, initialOrderContainerId }) =
                         },
                         private: {
                             metaData: [
-                                {
+                                initialMetaData || {
                                     iataCode: 'VKO',
                                 },
                             ],
@@ -91,7 +93,7 @@ const IFrame: FC<TIFrameProps> = ({ initialUseCase, initialOrderContainerId }) =
         return () => {
             window.removeEventListener('message', handleMessage);
         };
-    }, [initialUseCase, initialOrderContainerId]);
+    }, [initialUseCase, initialOrderContainerId, initialMetaData]);
 
     return (
         <div
@@ -152,6 +154,23 @@ export const Success: StoryObj<{}> = {
                     </Typography>
                 </div>
                 <IFrame initialUseCase={USE_CASES.success} />
+            </div>
+        );
+    },
+};
+
+export const Unavailable: StoryObj<{}> = {
+    render: () => {
+        return (
+            <div style={{ padding: 15 }}>
+                <div style={{ paddingBottom: 5 }}>
+                    <Typography variant="bodyL">
+                        <div>Корректная инициализация</div>
+                        <div>Высоту сообщает мини-приложение</div>
+                        <div>Приложение сообщает, что оно не доступно</div>
+                    </Typography>
+                </div>
+                <IFrame initialUseCase={USE_CASES.unavailable} initialMetaData={{}} />
             </div>
         );
     },
