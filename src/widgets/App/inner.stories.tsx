@@ -41,3 +41,10 @@ export const InnerAvailableSuccessFetchSuccessSubmit: StoryObj<TProps> = {
 export const InnerUnavailable: StoryObj<TProps> = {
     args: defaultMocks,
 };
+
+export const InnerAvailableErrorFetch: StoryObj<TProps> = {
+    args: {
+        ...defaultMocks,
+        fetchTariffs: () => Promise.reject(new Error('error')),
+    },
+};
