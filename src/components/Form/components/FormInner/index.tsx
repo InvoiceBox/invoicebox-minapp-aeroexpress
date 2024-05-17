@@ -1,12 +1,11 @@
 import React, { FC, MouseEvent, useEffect, useMemo, useRef } from 'react';
 import { useForm } from 'react-final-form';
-import { Divider, SecondaryButton, WarningIcon } from '@invoicebox/ui';
+import { Divider, SecondaryButton, WarningIcon, useMobile } from '@invoicebox/ui';
 import * as S from './styles';
 import { FIELDS, TInnerForm, TTariff } from '../../types';
 import { logic } from '../../logic';
 import { Caption } from '../../../Caption';
 import { Sum } from '../../../Sum';
-import { useMobile } from '../../../../hooks/useMedia';
 import { DateField } from '../../../DateField';
 import { SelectField } from '../../../SelectField';
 import { PositiveIntegerField } from '../../../PositiveIntegerField';
