@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { TTariff } from '../../../network/types';
 import { toast, useUnupdatableHandler } from '@invoicebox/ui';
+import { TFetchTariffsRequest } from '../../../network/http';
 
 type TProps = {
-    fetchTariffs: () => Promise<TTariff[]>;
+    fetchTariffs: TFetchTariffsRequest;
 };
 
 export const useTariffs = ({ fetchTariffs }: TProps) => {

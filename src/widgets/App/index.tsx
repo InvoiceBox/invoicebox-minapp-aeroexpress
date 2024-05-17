@@ -5,10 +5,10 @@ import { useInitialData } from './hooks/useInitialData';
 import { useEvents } from './hooks/useEvents';
 import { AppInner } from './components/AppInner';
 import { Loader } from '../../components/Loader';
-import { TTariff } from '../../network/types';
+import { TFetchTariffsRequest } from '../../network/http';
 
 export type TProps = {
-    fetchTariffs: () => Promise<TTariff[]>;
+    fetchTariffs: TFetchTariffsRequest;
 };
 
 export const App: FC<TProps> = ({ fetchTariffs }) => {

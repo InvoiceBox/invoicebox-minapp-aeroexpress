@@ -31,6 +31,8 @@ export const fetchTariffsRequest = (): Promise<TTariff[]> =>
             return data;
         });
 
+export type TFetchTariffsRequest = typeof fetchTariffsRequest;
+
 export const createOrderRequest = (data: TCreateOrder): Promise<TCreateOrderResponse> =>
     fetch(`${envLogic.getBaseUrl()}/orders`, {
         method: 'POST',
@@ -45,3 +47,5 @@ export const createOrderRequest = (data: TCreateOrder): Promise<TCreateOrderResp
         })
         .then((response) => response.json() as Promise<ICommonResponse<TCreateOrderResponse>>)
         .then((response) => response.data);
+
+export type TCreateOrderRequest = typeof createOrderRequest;

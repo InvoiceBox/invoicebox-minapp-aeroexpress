@@ -3,10 +3,10 @@ import { useTariffs } from './hooks/useTariffs';
 import { TariffsPage } from '../../components/TariffsPage';
 import { Tariffs } from '../../components/Tariffs';
 import { Loader } from '../../components/Loader';
-import { TTariff } from '../../network/types';
+import { TFetchTariffsRequest } from '../../network/http';
 
 export type TProps = {
-    fetchTariffs: () => Promise<TTariff[]>;
+    fetchTariffs: TFetchTariffsRequest;
 };
 
 export const LoadableTariffs: FC<TProps> = ({ fetchTariffs }) => {
