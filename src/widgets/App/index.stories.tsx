@@ -23,7 +23,8 @@ const meta: Meta<typeof App> = {
 export default meta;
 
 enum USE_CASES {
-    usual = 'widgets-app-inner--inner-available-real-fetch-real-submit',
+    real = 'widgets-app-inner--inner-available-real-fetch-real-submit',
+    success = 'widgets-app-inner--inner-available-success-fetch-success-submit',
 }
 
 const IFRAME_ID = 'IFRAME_ID';
@@ -35,7 +36,7 @@ const sendMessage = (message: unknown) => {
 
 type TIFrameProps = {
     initialUseCase: USE_CASES;
-    initialOrderContainerId: string;
+    initialOrderContainerId?: string;
 };
 
 const IFrame: FC<TIFrameProps> = ({ initialUseCase, initialOrderContainerId }) => {
@@ -62,7 +63,7 @@ const IFrame: FC<TIFrameProps> = ({ initialUseCase, initialOrderContainerId }) =
                             fullHeight: false,
                             locale: 'ru',
                             minappType: 'suborder',
-                            orderContainerId: initialOrderContainerId,
+                            orderContainerId: initialOrderContainerId || 'order-container-id',
                             shopId: 1,
                             userEmail: 'user@email.ru',
                             userName: 'user-name',
@@ -113,13 +114,11 @@ const IFrame: FC<TIFrameProps> = ({ initialUseCase, initialOrderContainerId }) =
     );
 };
 
-export const Real: StoryObj<{ initialUseCase: USE_CASES; initialOrderContainerId: string }> = {
+export const Real: StoryObj<{ initialOrderContainerId: string }> = {
     args: {
-        initialUseCase: USE_CASES.usual,
         initialOrderContainerId: 'order-container-id',
     },
-    render: ({ initialUseCase, initialOrderContainerId }) => {
-        const key = initialUseCase + initialOrderContainerId;
+    render: ({ initialOrderContainerId }) => {
         return (
             <div style={{ padding: 15 }}>
                 <div style={{ paddingBottom: 5 }}>
@@ -131,10 +130,28 @@ export const Real: StoryObj<{ initialUseCase: USE_CASES; initialOrderContainerId
                     </Typography>
                 </div>
                 <IFrame
-                    key={key}
-                    initialUseCase={initialUseCase}
+                    key={initialOrderContainerId}
+                    initialUseCase={USE_CASES.real}
                     initialOrderContainerId={initialOrderContainerId}
                 />
+            </div>
+        );
+    },
+};
+
+export const Success: StoryObj<{}> = {
+    render: () => {
+        return (
+            <div style={{ padding: 15 }}>
+                <div style={{ paddingBottom: 5 }}>
+                    <Typography variant="bodyL">
+                        <div>Корректная инициализация</div>
+                        <div>Высоту сообщает мини-приложение</div>
+                        <div>Успешная загрузка тарифов (мок)</div>
+                        <div>Успешная отправка формы (мок)</div>
+                    </Typography>
+                </div>
+                <IFrame initialUseCase={USE_CASES.success} />
             </div>
         );
     },
