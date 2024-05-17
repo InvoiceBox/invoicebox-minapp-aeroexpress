@@ -95,7 +95,7 @@ const IFrame: FC = () => {
                 <iframe
                     height={height}
                     id={IFRAME_ID}
-                    src={`/iframe.html?viewMode=story&id=${APP_ID}&args=`}
+                    src={`/iframe.html?env=stage&viewMode=story&id=${APP_ID}&args=`}
                     frameBorder="0"
                     title="title"
                     width="100%"
