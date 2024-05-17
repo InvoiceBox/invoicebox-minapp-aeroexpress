@@ -113,7 +113,7 @@ const IFrame: FC<TIFrameProps> = ({ initialUseCase, initialOrderContainerId }) =
     );
 };
 
-export const Usual: StoryObj<{ initialUseCase: USE_CASES; initialOrderContainerId: string }> = {
+export const Real: StoryObj<{ initialUseCase: USE_CASES; initialOrderContainerId: string }> = {
     args: {
         initialUseCase: USE_CASES.usual,
         initialOrderContainerId: 'order-container-id',
