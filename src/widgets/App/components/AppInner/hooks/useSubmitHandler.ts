@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { useUnupdatableHandler } from '@invoicebox/ui';
 import { TInitialData } from '../../../hooks/useInitialData';
 import { TEvents } from '../../../hooks/useEvents';
 import { TCreateOrderRequest } from '../../../../../network/http';
@@ -11,14 +10,10 @@ export const useSubmitHandler = (
     onError: TEvents['handleError'],
     createOrder: TCreateOrderRequest,
 ) => {
-    const handleDone = useUnupdatableHandler(onDone);
-    const handleError = useUnupdatableHandler(onError);
-    const handleCreateOrder = useUnupdatableHandler(createOrder);
-
     const handleSubmit = useCallback(
         async (form: TOutterForm) => {
             const { orderContainerId, userName, userEmail, userPhone } = initialData;
-            await handleCreateOrder({
+            await createOrder({
                 ...form,
                 orderContainerId,
                 firstName: userName,
@@ -26,11 +21,11 @@ export const useSubmitHandler = (
                 phone: userPhone,
             })
                 .then((response) => {
-                    handleDone(response.url);
+                    onDone(response.url);
                 })
-                .catch(() => handleError());
+                .catch(() => onError());
         },
-        [handleDone, handleError, initialData, handleCreateOrder],
+        [onDone, onError, initialData, createOrder],
     );
 
     return handleSubmit;
