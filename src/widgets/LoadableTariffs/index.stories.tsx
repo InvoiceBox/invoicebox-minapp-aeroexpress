@@ -5,6 +5,7 @@ import { dummyTariffs } from '../../network/dummy';
 import { ToastContainer } from '@invoicebox/ui';
 import 'react-toastify/dist/ReactToastify.css';
 import { ReactNode } from 'react';
+import '../../index.css';
 
 const meta: Meta<typeof LoadableTariffs> = {
     title: 'widgets/LoadableTariffs',
