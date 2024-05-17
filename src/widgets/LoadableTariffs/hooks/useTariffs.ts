@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { TTariff } from '../../../network/types';
-import { useUnupdatableHandler } from '@invoicebox/ui';
+import { toast, useUnupdatableHandler } from '@invoicebox/ui';
 
 type TProps = {
     fetchTariffs: () => Promise<TTariff[]>;
@@ -16,7 +16,9 @@ export const useTariffs = ({ fetchTariffs }: TProps) => {
         handleFetchTariffs()
             .then(setTariffs)
             .catch(() => {
-                // TODO
+                toast.error(
+                    'Произошла ошибка в работе сервиса. Пожалуйста, повторите попытку или обновите страницу.',
+                );
             })
             .finally(() => setInitializedFlag(true));
     }, [handleFetchTariffs]);
