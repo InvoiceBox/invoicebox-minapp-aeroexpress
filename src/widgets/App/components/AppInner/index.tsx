@@ -11,6 +11,7 @@ import { envLogic } from '../../../../network/envLogic';
 import { TTariff } from '../../../../network/types';
 import { Form } from '../../../../components/Form';
 import { TCreateOrderRequest } from '../../../../network/http';
+import { ROUTES } from '../../../../router/routes';
 
 export type TProps = {
     initialData: TInitialData;
@@ -44,10 +45,7 @@ export const AppInner: FC<TProps> = ({ initialData, tariffs, events, createOrder
                 onSubmit={handleSubmit}
                 initialTariffs={tariffs}
                 onLink={handleLink}
-                tariffsHref={envLogic.appendEnv(
-                    // TODO
-                    `${invoiceboxMinapp.getParentOrigin()}/aeroexpressTariffs`,
-                )}
+                tariffsHref={envLogic.appendEnv(`${invoiceboxMinapp.getParentOrigin()}${ROUTES.tariffs}`)}
                 buttonText={isSuborder ? 'Добавить в заказ' : 'Купить билет'}
             />
         </S.Wrapper>
