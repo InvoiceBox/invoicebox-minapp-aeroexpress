@@ -12,6 +12,21 @@ const meta: Meta<typeof App> = {
 
 export default meta;
 
+const defaultMocks: TProps = {
+    fetchTariffs: () =>
+        new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(dummyTariffs);
+            }, 1000);
+        }),
+    createOrder: () =>
+        new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({ url: '/some-url', method: 'GET' });
+            }, 1000);
+        }),
+};
+
 export const InnerAvailableRealFetchRealSubmit: StoryObj<TProps> = {
     args: {
         fetchTariffs: fetchTariffsRequest,
@@ -20,25 +35,9 @@ export const InnerAvailableRealFetchRealSubmit: StoryObj<TProps> = {
 };
 
 export const InnerAvailableSuccessFetchSuccessSubmit: StoryObj<TProps> = {
-    args: {
-        fetchTariffs: () => Promise.resolve(dummyTariffs),
-        createOrder: () =>
-            new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve({ url: '/some-url', method: 'GET' });
-                }, 1000);
-            }),
-    },
+    args: defaultMocks,
 };
 
 export const InnerUnavailable: StoryObj<TProps> = {
-    args: {
-        fetchTariffs: () => Promise.resolve(dummyTariffs),
-        createOrder: () =>
-            new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve({ url: '/some-url', method: 'GET' });
-                }, 1000);
-            }),
-    },
+    args: defaultMocks,
 };
