@@ -31,3 +31,9 @@ export const Default: StoryObj<typeof Tariffs> = {
         ],
     },
 };
+
+export const NoTariffs: StoryObj<typeof Tariffs> = {
+    args: {
+        tariffs: [],
+    },
+};

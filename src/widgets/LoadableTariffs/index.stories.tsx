@@ -4,6 +4,7 @@ import { fetchTariffsRequest } from '../../network/http';
 import { dummyTariffs } from '../../network/dummy';
 import { ToastContainer } from '@invoicebox/ui';
 import 'react-toastify/dist/ReactToastify.css';
+import { ReactNode } from 'react';
 
 const meta: Meta<typeof LoadableTariffs> = {
     title: 'widgets/LoadableTariffs',
@@ -12,6 +13,13 @@ const meta: Meta<typeof LoadableTariffs> = {
 };
 
 export default meta;
+
+const Container = ({ children }: { children: ReactNode }) => (
+    <>
+        <ToastContainer />
+        {children}
+    </>
+);
 
 export const Default: StoryObj<typeof LoadableTariffs> = {
     args: {
@@ -22,6 +30,13 @@ export const Default: StoryObj<typeof LoadableTariffs> = {
 export const RealFetch: StoryObj<typeof LoadableTariffs> = {
     args: {
         fetchTariffs: fetchTariffsRequest,
+    },
+    render: (props) => {
+        return (
+            <Container>
+                <LoadableTariffs {...props} />
+            </Container>
+        );
     },
 };
 
@@ -40,10 +55,9 @@ export const LoadingError: StoryObj<typeof LoadableTariffs> = {
     },
     render: (props) => {
         return (
-            <>
-                <ToastContainer />
+            <Container>
                 <LoadableTariffs {...props} />
-            </>
+            </Container>
         );
     },
 };
