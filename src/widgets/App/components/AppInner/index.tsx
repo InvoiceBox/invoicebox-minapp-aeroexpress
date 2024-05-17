@@ -10,19 +10,21 @@ import { TEvents } from '../../hooks/useEvents';
 import { envLogic } from '../../../../network/envLogic';
 import { TTariff } from '../../../../network/types';
 import { Form } from '../../../../components/Form';
+import { TCreateOrderRequest } from '../../../../network/http';
 
 export type TProps = {
     initialData: TInitialData;
     tariffs: TTariff[];
     events: TEvents;
+    createOrder: TCreateOrderRequest;
 };
 
-export const AppInner: FC<TProps> = ({ initialData, tariffs, events }) => {
+export const AppInner: FC<TProps> = ({ initialData, tariffs, events, createOrder }) => {
     const { handleError, handleHeightChange, handleUnavailable, handleDone, handleLink: onLink } = events;
     const setHeightElRef = useHeight(initialData.fullHeight, handleHeightChange);
     const isSuborder = useSuborderFlag(initialData);
     useAirportCheck(handleUnavailable, isSuborder);
-    const handleSubmit = useSubmitHandler(initialData, handleDone, handleError);
+    const handleSubmit = useSubmitHandler(initialData, handleDone, handleError, createOrder);
 
     const handleLink = useCallback(
         (event: MouseEvent<HTMLAnchorElement>) => {
