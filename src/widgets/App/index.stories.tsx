@@ -27,6 +27,7 @@ enum USE_CASES {
     success = 'widgets-app-inner--inner-available-success-fetch-success-submit',
     unavailable = 'widgets-app-inner--inner-unavailable',
     fetchError = 'widgets-app-inner--inner-available-error-fetch',
+    submitError = 'widgets-app-inner--inner-available-success-fetch-error-submit',
 }
 
 const IFRAME_ID = 'IFRAME_ID';
@@ -189,6 +190,24 @@ export const FetchError: StoryObj<{}> = {
                     </Typography>
                 </div>
                 <IFrame initialUseCase={USE_CASES.fetchError} />
+            </div>
+        );
+    },
+};
+
+export const SubmitError: StoryObj<{}> = {
+    render: () => {
+        return (
+            <div style={{ padding: 15 }}>
+                <div style={{ paddingBottom: 5 }}>
+                    <Typography variant="bodyL">
+                        <div>Корректная инициализация</div>
+                        <div>Высоту сообщает мини-приложение</div>
+                        <div>Успешная загрузка тарифов (мок)</div>
+                        <div>Ошибка отправки формы</div>
+                    </Typography>
+                </div>
+                <IFrame initialUseCase={USE_CASES.submitError} />
             </div>
         );
     },
