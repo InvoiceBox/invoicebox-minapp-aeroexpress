@@ -55,3 +55,7 @@ export const InnerAvailableSuccessFetchErrorSubmit: StoryObj<TProps> = {
         createOrder: () => Promise.reject(new Error('error')),
     },
 };
+
+export const InnerHeightByContainer: StoryObj<TProps> = {
+    args: defaultMocks,
+};

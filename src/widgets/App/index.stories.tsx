@@ -28,6 +28,7 @@ enum USE_CASES {
     unavailable = 'widgets-app-inner--inner-unavailable',
     fetchError = 'widgets-app-inner--inner-available-error-fetch',
     submitError = 'widgets-app-inner--inner-available-success-fetch-error-submit',
+    heightByContainer = 'widgets-app-inner--inner-height-by-container',
 }
 
 const IFRAME_ID = 'IFRAME_ID';
@@ -41,10 +42,16 @@ type TIFrameProps = {
     initialUseCase: USE_CASES;
     initialOrderContainerId?: string;
     initialMetaData?: unknown;
+    initialFullHeight?: boolean;
 };
 
-const IFrame: FC<TIFrameProps> = ({ initialUseCase, initialOrderContainerId, initialMetaData }) => {
-    const [height, setHeight] = useState(287);
+const IFrame: FC<TIFrameProps> = ({
+    initialUseCase,
+    initialOrderContainerId,
+    initialMetaData,
+    initialFullHeight = false,
+}) => {
+    const [height, setHeight] = useState(!initialFullHeight ? 287 : 400);
 
     useEffect(() => {
         const handleMessage = (event: MessageEvent) => {
@@ -64,7 +71,7 @@ const IFrame: FC<TIFrameProps> = ({ initialUseCase, initialOrderContainerId, ini
                     action: 'init',
                     data: {
                         public: {
-                            fullHeight: false,
+                            fullHeight: initialFullHeight as false,
                             locale: 'ru',
                             minappType: 'suborder',
                             orderContainerId: initialOrderContainerId || 'order-container-id',
@@ -95,7 +102,7 @@ const IFrame: FC<TIFrameProps> = ({ initialUseCase, initialOrderContainerId, ini
         return () => {
             window.removeEventListener('message', handleMessage);
         };
-    }, [initialUseCase, initialOrderContainerId, initialMetaData]);
+    }, [initialUseCase, initialOrderContainerId, initialMetaData, initialFullHeight]);
 
     return (
         <div
@@ -118,41 +125,15 @@ const IFrame: FC<TIFrameProps> = ({ initialUseCase, initialOrderContainerId, ini
     );
 };
 
-export const Real: StoryObj<{ initialOrderContainerId: string }> = {
-    args: {
-        initialOrderContainerId: 'order-container-id',
-    },
-    render: ({ initialOrderContainerId }) => {
-        return (
-            <div style={{ padding: 15 }}>
-                <div style={{ paddingBottom: 5 }}>
-                    <Typography variant="bodyL">
-                        <div>Корректная инициализация</div>
-                        <div>Высоту сообщает мини-приложение</div>
-                        <div>Тарифы загружаются с сервера</div>
-                        <div>Форма отправляется на сервер</div>
-                    </Typography>
-                </div>
-                <IFrame
-                    key={initialOrderContainerId}
-                    initialUseCase={USE_CASES.real}
-                    initialOrderContainerId={initialOrderContainerId}
-                />
-            </div>
-        );
-    },
-};
-
 export const Success: StoryObj<{}> = {
     render: () => {
         return (
             <div style={{ padding: 15 }}>
                 <div style={{ paddingBottom: 5 }}>
                     <Typography variant="bodyL">
-                        <div>Корректная инициализация</div>
                         <div>Высоту сообщает мини-приложение</div>
-                        <div>Успешная загрузка тарифов (мок)</div>
-                        <div>Успешная отправка формы (мок)</div>
+                        <div>Успешная загрузка тарифов</div>
+                        <div>Успешная отправка формы</div>
                     </Typography>
                 </div>
                 <IFrame initialUseCase={USE_CASES.success} />
@@ -167,7 +148,6 @@ export const Unavailable: StoryObj<{}> = {
             <div style={{ padding: 15 }}>
                 <div style={{ paddingBottom: 5 }}>
                     <Typography variant="bodyL">
-                        <div>Корректная инициализация</div>
                         <div>Высоту сообщает мини-приложение</div>
                         <div>Приложение сообщает, что оно не доступно</div>
                     </Typography>
@@ -184,7 +164,6 @@ export const FetchError: StoryObj<{}> = {
             <div style={{ padding: 15 }}>
                 <div style={{ paddingBottom: 5 }}>
                     <Typography variant="bodyL">
-                        <div>Корректная инициализация</div>
                         <div>Высоту сообщает мини-приложение</div>
                         <div>Ошибка загрузки тарифов</div>
                     </Typography>
@@ -201,13 +180,51 @@ export const SubmitError: StoryObj<{}> = {
             <div style={{ padding: 15 }}>
                 <div style={{ paddingBottom: 5 }}>
                     <Typography variant="bodyL">
-                        <div>Корректная инициализация</div>
                         <div>Высоту сообщает мини-приложение</div>
-                        <div>Успешная загрузка тарифов (мок)</div>
+                        <div>Успешная загрузка тарифов</div>
                         <div>Ошибка отправки формы</div>
                     </Typography>
                 </div>
                 <IFrame initialUseCase={USE_CASES.submitError} />
+            </div>
+        );
+    },
+};
+
+export const HeightByContainer: StoryObj<{}> = {
+    render: () => {
+        return (
+            <div style={{ padding: 15 }}>
+                <div style={{ paddingBottom: 5 }}>
+                    <Typography variant="bodyL">
+                        <div>Мини-приложение подстраивается под высоту контейнера</div>
+                    </Typography>
+                </div>
+                <IFrame initialUseCase={USE_CASES.heightByContainer} initialFullHeight />
+            </div>
+        );
+    },
+};
+
+export const Real: StoryObj<{ initialOrderContainerId: string }> = {
+    args: {
+        initialOrderContainerId: 'order-container-id',
+    },
+    render: ({ initialOrderContainerId }) => {
+        return (
+            <div style={{ padding: 15 }}>
+                <div style={{ paddingBottom: 5 }}>
+                    <Typography variant="bodyL">
+                        <div>Высоту сообщает мини-приложение</div>
+                        <div>Тарифы загружаются с сервера</div>
+                        <div>Форма отправляется на сервер</div>
+                    </Typography>
+                </div>
+                <IFrame
+                    key={initialOrderContainerId}
+                    initialUseCase={USE_CASES.real}
+                    initialOrderContainerId={initialOrderContainerId}
+                />
             </div>
         );
     },
