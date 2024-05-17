@@ -45,7 +45,7 @@ export const AppInner: FC<TProps> = ({ initialData, tariffs, events, createOrder
                 initialTariffs={tariffs}
                 onLink={handleLink}
                 tariffsHref={envLogic.appendEnv(
-                    // DOTO
+                    // TODO
                     `${invoiceboxMinapp.getParentOrigin()}/aeroexpressTariffs`,
                 )}
                 buttonText={isSuborder ? 'Добавить в заказ' : 'Купить билет'}
