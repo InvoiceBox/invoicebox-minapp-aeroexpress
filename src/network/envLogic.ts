@@ -4,9 +4,9 @@ enum URLS {
     prod = 'https://aeroexpress.business/api/public',
 }
 
-const ENV_PARAM_NAME = 'env';
+export const ENV_PARAM_NAME = 'env';
 const DEV_PARAM_VALUE = 'dev';
-const STAGE_PARAM_VALUE = 'stage';
+export const STAGE_PARAM_VALUE = 'stage';
 
 class EnvLogic {
     private getEnv() {
