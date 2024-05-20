@@ -2,10 +2,10 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { Form, TProps } from '.';
-import { dummyOptions } from './dummyOptions';
+import { dummyTariffs } from '../../network/dummy';
 
 const meta: Meta<typeof Form> = {
-    title: 'miniApp/aeroexpress/components/Form',
+    title: 'components/Form',
     component: Form,
     tags: ['autodocs'],
 };
@@ -19,8 +19,11 @@ const args: TProps = {
         });
         action('submit')(...props);
     },
-    initialTariffs: dummyOptions,
-    onLink: action('onLink'),
+    initialTariffs: dummyTariffs,
+    onLink: (event) => {
+        event.preventDefault();
+        action('onLink')();
+    },
     tariffsHref: 'https://example.com/aeroexpress/tariffs',
     buttonText: 'Добавить в заказ',
 };

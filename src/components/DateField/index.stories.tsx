@@ -4,7 +4,7 @@ import { DateField, TProps } from '.';
 import { FIELD_NAME, StoryOneFieldForm } from '../_helpers/StoryOneFieldForm';
 
 const meta: Meta<typeof DateField> = {
-    title: 'common/formFields/DateField',
+    title: 'components/DateField',
     component: DateField,
     tags: ['autodocs'],
 };

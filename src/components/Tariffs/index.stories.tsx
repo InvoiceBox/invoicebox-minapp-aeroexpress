@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Tariffs } from '.';
 
 const meta: Meta<typeof Tariffs> = {
-    title: 'miniApp/aeroexpress/components/Tariffs',
+    title: 'components/Tariffs',
     component: Tariffs,
     tags: ['autodocs'],
 };
@@ -29,5 +29,11 @@ export const Default: StoryObj<typeof Tariffs> = {
                     'предназначен для поездки между терминалами B, C и D, E, F аэропорта Шереметьево.</font>',
             },
         ],
+    },
+};
+
+export const NoTariffs: StoryObj<typeof Tariffs> = {
+    args: {
+        tariffs: [],
     },
 };

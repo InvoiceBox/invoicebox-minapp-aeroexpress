@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { TariffsPage } from '.';
 
 const meta: Meta<typeof TariffsPage> = {
-    title: 'miniApp/aeroexpress/components/TariffsPage',
+    title: 'components/TariffsPage',
     component: TariffsPage,
     tags: ['autodocs'],
 };

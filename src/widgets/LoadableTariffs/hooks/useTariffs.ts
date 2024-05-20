@@ -1,22 +1,28 @@
 import { useEffect, useState } from 'react';
-import { useIntl } from 'react-intl';
 import { TTariff } from '../../../network/types';
-import { fetchTariffsRequest } from '../../../network/http';
+import { toast, useUnupdatableHandler } from '@invoicebox/ui';
+import { TFetchTariffsRequest } from '../../../network/http';
 
-export const useTariffs = () => {
-    const intl = useIntl();
+type TProps = {
+    fetchTariffs: TFetchTariffsRequest;
+};
 
+export const useTariffs = ({ fetchTariffs }: TProps) => {
     const [tariffs, setTariffs] = useState<TTariff[]>([]);
     const [isInitialized, setInitializedFlag] = useState(false);
 
+    const handleFetchTariffs = useUnupdatableHandler(fetchTariffs);
+
     useEffect(() => {
-        fetchTariffsRequest()
-            .then((resp) => setTariffs(resp.data.filter((tariff) => tariff.active)))
+        handleFetchTariffs()
+            .then(setTariffs)
             .catch(() => {
-                // TODO
+                toast.error(
+                    'Произошла ошибка в работе сервиса. Пожалуйста, повторите попытку или обновите страницу.',
+                );
             })
             .finally(() => setInitializedFlag(true));
-    }, [intl]);
+    }, [handleFetchTariffs]);
 
     return { tariffs, isInitialized };
 };

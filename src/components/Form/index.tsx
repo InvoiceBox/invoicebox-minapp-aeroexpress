@@ -4,7 +4,7 @@ import { TInnerForm, TOutterForm, TTariff, getInitialValues, normalizeTo, valida
 import { logic } from './logic';
 import { FormInner } from './components/FormInner';
 import * as S from './styles';
-import useValidationSchema from '../../hooks/useValidationSchema';
+import useValidationSchema from './hooks/useValidationSchema';
 
 export type TProps = {
     onSubmit: (form: TOutterForm) => Promise<void>;
