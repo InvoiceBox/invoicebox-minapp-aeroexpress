@@ -2,8 +2,6 @@ import { AnyObject, setIn } from 'final-form';
 import { useMemo } from 'react';
 import { AnySchema } from 'yup';
 
-// TODO
-
 const setInError = (errors: AnyObject, innerError: any) => setIn(errors, innerError.path, innerError.message);
 
 const emptyObj = Object.create(null);

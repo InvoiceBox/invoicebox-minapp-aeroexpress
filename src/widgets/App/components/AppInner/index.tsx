@@ -7,22 +7,25 @@ import { useAirportCheck } from './hooks/useAirportCheck';
 import { useSubmitHandler } from './hooks/useSubmitHandler';
 import * as S from './styles';
 import { TEvents } from '../../hooks/useEvents';
-import { aeroexpressLogic } from '../../../../network/logic';
+import { envLogic } from '../../../../network/envLogic';
 import { TTariff } from '../../../../network/types';
 import { Form } from '../../../../components/Form';
+import { TCreateOrderRequest } from '../../../../network/http';
+import { ROUTES } from '../../../../router/routes';
 
 export type TProps = {
     initialData: TInitialData;
     tariffs: TTariff[];
     events: TEvents;
+    createOrder: TCreateOrderRequest;
 };
 
-export const AppInner: FC<TProps> = ({ initialData, tariffs, events }) => {
+export const AppInner: FC<TProps> = ({ initialData, tariffs, events, createOrder }) => {
     const { handleError, handleHeightChange, handleUnavailable, handleDone, handleLink: onLink } = events;
     const setHeightElRef = useHeight(initialData.fullHeight, handleHeightChange);
     const isSuborder = useSuborderFlag(initialData);
     useAirportCheck(handleUnavailable, isSuborder);
-    const handleSubmit = useSubmitHandler(initialData, handleDone, handleError);
+    const handleSubmit = useSubmitHandler(initialData, handleDone, handleError, createOrder);
 
     const handleLink = useCallback(
         (event: MouseEvent<HTMLAnchorElement>) => {
@@ -42,10 +45,7 @@ export const AppInner: FC<TProps> = ({ initialData, tariffs, events }) => {
                 onSubmit={handleSubmit}
                 initialTariffs={tariffs}
                 onLink={handleLink}
-                tariffsHref={aeroexpressLogic.appendEnv(
-                    // DOTO
-                    `${invoiceboxMinapp.getParentOrigin()}/aeroexpressTariffs`,
-                )}
+                tariffsHref={envLogic.appendEnv(`${invoiceboxMinapp.getParentOrigin()}${ROUTES.tariffs}`)}
                 buttonText={isSuborder ? 'Добавить в заказ' : 'Купить билет'}
             />
         </S.Wrapper>

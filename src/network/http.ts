@@ -1,7 +1,7 @@
 import camelcaseKeys from 'camelcase-keys';
 import snakecaseKeys from 'snakecase-keys';
 import { TCreateOrder, TCreateOrderResponse, TTariff } from './types';
-import { aeroexpressLogic } from './logic';
+import { envLogic } from './envLogic';
 
 export interface ICommonResponse<D, E = any> {
     data: D;
@@ -13,30 +13,39 @@ export interface ICommonResponse<D, E = any> {
     };
 }
 
-export const fetchTariffsRequest = () =>
-    fetch(`${aeroexpressLogic.getBaseUrl()}/tariffs`)
+export const fetchTariffsRequest = (): Promise<TTariff[]> =>
+    fetch(`${envLogic.getBaseUrl()}/tariffs`)
         .then((response) => {
-            if (response.ok) return response;
-            throw new Error(response.statusText);
+            if (!response.ok) throw new Error(response.statusText);
+            return response;
         })
         .then((response) => response.json() as Promise<ICommonResponse<TTariff[], void>>)
         .then((response) => {
-            const data = response.data.map((item) =>
-                // @ts-ignore
-                camelcaseKeys(item),
-            ) as TTariff[];
-            response.data = data;
-            return response;
+            const data = response.data
+                .map(
+                    (item) =>
+                        // @ts-ignore
+                        camelcaseKeys(item) as TTariff,
+                )
+                .filter((tariff) => tariff.active);
+            return data;
         });
 
-export const createOrderRequest = (data: TCreateOrder) =>
-    fetch(`${aeroexpressLogic.getBaseUrl()}/orders`, {
+export type TFetchTariffsRequest = typeof fetchTariffsRequest;
+
+export const createOrderRequest = (data: TCreateOrder): Promise<TCreateOrderResponse> =>
+    fetch(`${envLogic.getBaseUrl()}/orders`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(snakecaseKeys(data)),
-    }).then((response) => {
-        if (response.ok) return response.json() as Promise<ICommonResponse<TCreateOrderResponse>>;
-        throw new Error(response.statusText);
-    });
+    })
+        .then((response) => {
+            if (!response.ok) throw new Error(response.statusText);
+            return response;
+        })
+        .then((response) => response.json() as Promise<ICommonResponse<TCreateOrderResponse>>)
+        .then((response) => response.data);
+
+export type TCreateOrderRequest = typeof createOrderRequest;
