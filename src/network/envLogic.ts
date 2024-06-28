@@ -1,7 +1,7 @@
 enum URLS {
     dev = 'https://aeroexpress.dev.invbox.ru/api/public',
     stage = 'https://aeroexpress.stage.invbox.ru/api/public',
-    prod = 'https://aeroexpress.business/api/public',
+    prod = 'https://aeroexpressbusiness.ru/api/public',
 }
 
 export const ENV_PARAM_NAME = 'env';
