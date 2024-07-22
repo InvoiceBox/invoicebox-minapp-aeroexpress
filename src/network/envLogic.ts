@@ -1,4 +1,4 @@
-enum DOMAINS {
+enum API_ORIGINS {
     dev = 'https://aeroexpress.dev.invbox.ru',
     stage = 'https://aeroexpress.stage.invbox.ru',
     prod = 'https://aeroexpressbusiness.ru',
@@ -11,7 +11,7 @@ enum ENV_VARIANTS {
     craProd = 'craProd',
 }
 
-const BASE_URL = '/api/public';
+const API_BASE_URL = '/api/public';
 
 const IS_STORYBOOK_DEV = process.env.STORYBOOK_ENV_DEV === 'true';
 const IS_STORYBOOK_PROD = process.env.STORYBOOK_ENV_PROD === 'true';
@@ -24,18 +24,18 @@ const ENV_VARIANT = (() => {
     return ENV_VARIANTS.craProd;
 })();
 
-const URLS: Record<ENV_VARIANTS, string> = {
-    storybookDev: `${DOMAINS.stage}${BASE_URL}`,
-    storybookProd: `${DOMAINS.prod}${BASE_URL}`,
-    craDev: `${DOMAINS.stage}${BASE_URL}`,
-    craProd: BASE_URL,
+const API_URLS: Record<ENV_VARIANTS, string> = {
+    storybookDev: `${API_ORIGINS.stage}${API_BASE_URL}`,
+    storybookProd: `${API_ORIGINS.prod}${API_BASE_URL}`,
+    craDev: `${API_ORIGINS.stage}${API_BASE_URL}`,
+    craProd: API_BASE_URL,
 };
 
-const URL = URLS[ENV_VARIANT];
+const API_URL = API_URLS[ENV_VARIANT];
 
 class EnvLogic {
     getApiUrl() {
-        return URL;
+        return API_URL;
     }
 
     appendCurrentOrigin(href: string) {
