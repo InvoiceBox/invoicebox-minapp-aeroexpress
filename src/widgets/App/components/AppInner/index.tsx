@@ -1,5 +1,4 @@
 import React, { FC, MouseEvent, useCallback, useMemo } from 'react';
-import { invoiceboxMinapp } from '@invoicebox/minapp-sdk';
 import { TInitialData } from '../../hooks/useInitialData';
 import { useHeight } from './hooks/useHeight';
 import { useSuborderFlag } from './hooks/useSuborderFlag';
@@ -7,11 +6,11 @@ import { useAirportCheck } from './hooks/useAirportCheck';
 import { useSubmitHandler } from './hooks/useSubmitHandler';
 import * as S from './styles';
 import { TEvents } from '../../hooks/useEvents';
-import { envLogic } from '../../../../network/envLogic';
 import { TTariff } from '../../../../network/types';
 import { Form } from '../../../../components/Form';
 import { TCreateOrderRequest } from '../../../../network/http';
 import { ROUTES } from '../../../../router/routes';
+import { envLogic } from '../../../../network/envLogic';
 
 export type TProps = {
     initialData: TInitialData;
@@ -45,7 +44,7 @@ export const AppInner: FC<TProps> = ({ initialData, tariffs, events, createOrder
                 onSubmit={handleSubmit}
                 initialTariffs={tariffs}
                 onLink={handleLink}
-                tariffsHref={envLogic.appendEnv(`${invoiceboxMinapp.getParentOrigin()}${ROUTES.tariffs}`)}
+                tariffsHref={envLogic.appendCurrentOrigin(ROUTES.tariffs)}
                 buttonText={isSuborder ? 'Добавить в заказ' : 'Купить билет'}
             />
         </S.Wrapper>

@@ -13,7 +13,6 @@ import {
 } from '@invoicebox/minapp-sdk';
 import '../../index.css';
 import { Typography } from '@invoicebox/ui';
-import { ENV_PARAM_NAME, STAGE_PARAM_VALUE } from '../../network/envLogic';
 
 const meta: Meta<typeof App> = {
     title: 'widgets/App',
@@ -116,7 +115,7 @@ const IFrame: FC<TIFrameProps> = ({
             <iframe
                 height={height}
                 id={IFRAME_ID}
-                src={`/iframe.html?${ENV_PARAM_NAME}=${STAGE_PARAM_VALUE}&viewMode=story&id=${initialUseCase}&args=`}
+                src={`/iframe.html?viewMode=story&id=${initialUseCase}&args=`}
                 frameBorder="0"
                 title="title"
                 width="100%"

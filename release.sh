@@ -6,7 +6,7 @@ git checkout develop &&
 rm -rf docs &&
 
 # build storybook
-./node_modules/.bin/storybook build --output-dir docs &&
+STORYBOOK_ENV_PROD=true ./node_modules/.bin/storybook build --output-dir docs &&
 
 # set domain for github pages
 echo "ui.aeroexpress.business" > ./docs/CNAME
