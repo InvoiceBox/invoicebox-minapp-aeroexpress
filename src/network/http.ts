@@ -14,7 +14,7 @@ export interface ICommonResponse<D, E = any> {
 }
 
 export const fetchTariffsRequest = (): Promise<TTariff[]> =>
-    fetch(`${envLogic.getBaseUrl()}/tariffs`)
+    fetch(`${envLogic.getApiUrl()}/tariffs`)
         .then((response) => {
             if (!response.ok) throw new Error(response.statusText);
             return response;
@@ -34,7 +34,7 @@ export const fetchTariffsRequest = (): Promise<TTariff[]> =>
 export type TFetchTariffsRequest = typeof fetchTariffsRequest;
 
 export const createOrderRequest = (data: TCreateOrder): Promise<TCreateOrderResponse> =>
-    fetch(`${envLogic.getBaseUrl()}/orders`, {
+    fetch(`${envLogic.getApiUrl()}/orders`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

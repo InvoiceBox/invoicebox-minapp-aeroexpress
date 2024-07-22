@@ -28,7 +28,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "STORYBOOK_ENV_DEV=true storybook dev -p 6006",
     "release": "./release.sh"
   },
   "eslintConfig": {
