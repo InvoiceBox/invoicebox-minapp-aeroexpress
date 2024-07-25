@@ -7,10 +7,16 @@ import { ROUTES } from './routes';
 export const router = createBrowserRouter([
     {
         path: ROUTES.root,
-        element: <App fetchTariffs={fetchTariffsRequest} createOrder={createOrderRequest} />,
-    },
-    {
-        path: ROUTES.tariffs,
-        element: <LoadableTariffs fetchTariffs={fetchTariffsRequest} />,
+        errorElement: <div />,
+        children: [
+            {
+                element: <App fetchTariffs={fetchTariffsRequest} createOrder={createOrderRequest} />,
+                index: true,
+            },
+            {
+                path: ROUTES.tariffs,
+                element: <LoadableTariffs fetchTariffs={fetchTariffsRequest} />,
+            },
+        ],
     },
 ]);
