@@ -42,13 +42,10 @@ export const createOrderRequest = (data: TCreateOrder): Promise<TCreateOrderResp
         body: JSON.stringify(snakecaseKeys(data)),
     })
         .then((response) => {
-            if (!response.ok) throw new Error("Ошибка при оформлении заказа"); // *-* save (important)
+            if (!response.ok) throw new Error('Ошибка при оформлении заказа'); // *-* save (important)
             return response;
         })
         .then((response) => response.json() as Promise<ICommonResponse<TCreateOrderResponse>>)
-        .then((response) => response.data).catch(()=> ({
-        url: "https://pay.stage.invbox.ru/order/0199b6b9-4dc0-7b9d-9f2c-863b1a8db581",
-        method: "method"
-    }));
+        .then((response) => response.data)
 
 export type TCreateOrderRequest = typeof createOrderRequest;
