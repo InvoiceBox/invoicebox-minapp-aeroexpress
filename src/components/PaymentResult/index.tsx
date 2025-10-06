@@ -9,25 +9,20 @@ export type TProps = {
 };
 
 export const PaymentResult: FC<TProps> = ({ status, onRetry }) => {
-    if (!status)   return (
-        <S.Wrapper>
-            <S.Title>
-                <Typography variant="headline3">
-                   Ошибка
-                </Typography>
-            </S.Title>
-            <S.Message>
-                <Typography variant="bodyMRegular">
-                   Неизвестный статус оплаты
-                </Typography>
-            </S.Message>
-            <S.ButtonWrapper>
-                <SecondaryButton onClick={onRetry}>
-                    Назад
-                </SecondaryButton>
-            </S.ButtonWrapper>
-        </S.Wrapper>
-    );
+    if (!status)
+        return (
+            <S.Wrapper>
+                <S.Title>
+                    <Typography variant="headline3">Ошибка</Typography>
+                </S.Title>
+                <S.Message>
+                    <Typography variant="bodyMRegular">Неизвестный статус оплаты</Typography>
+                </S.Message>
+                <S.ButtonWrapper>
+                    <SecondaryButton onClick={onRetry}>Назад</SecondaryButton>
+                </S.ButtonWrapper>
+            </S.Wrapper>
+        );
 
     const getContent = () => {
         switch (status) {
@@ -48,7 +43,8 @@ export const PaymentResult: FC<TProps> = ({ status, onRetry }) => {
             case 'canceled':
                 return {
                     title: 'Оплата отменена',
-                    message: 'Вы отменили оплату. Вы можете попробовать еще раз или продолжить оформление других билетов.',
+                    message:
+                        'Вы отменили оплату. Вы можете попробовать еще раз или продолжить оформление других билетов.',
                     buttonText: 'Попробовать еще раз',
                     buttonAction: onRetry,
                 };
@@ -63,19 +59,13 @@ export const PaymentResult: FC<TProps> = ({ status, onRetry }) => {
     return (
         <S.Wrapper>
             <S.Title>
-                <Typography variant="headline3">
-                    {content.title}
-                </Typography>
+                <Typography variant="headline3">{content.title}</Typography>
             </S.Title>
             <S.Message>
-                <Typography variant="bodyMRegular">
-                    {content.message}
-                </Typography>
+                <Typography variant="bodyMRegular">{content.message}</Typography>
             </S.Message>
             <S.ButtonWrapper>
-                <SecondaryButton onClick={content.buttonAction}>
-                    {content.buttonText}
-                </SecondaryButton>
+                <SecondaryButton onClick={content.buttonAction}>{content.buttonText}</SecondaryButton>
             </S.ButtonWrapper>
         </S.Wrapper>
     );

@@ -23,10 +23,5 @@ export const PaymentResultPage: FC = () => {
         return null;
     }
 
-    return (
-        <PaymentResult
-            status={paymentStatus}
-            onRetry={handleRetry}
-        />
-    );
+    return <PaymentResult status={paymentStatus} onRetry={handleRetry} />;
 };

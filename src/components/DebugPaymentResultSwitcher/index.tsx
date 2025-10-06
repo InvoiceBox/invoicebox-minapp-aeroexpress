@@ -4,7 +4,7 @@ import * as S from './styles';
 
 type TProps = {
     onDemoStatusChange: (status: TPaymentStatus | null) => void;
-}
+};
 
 const DEMO_OPTIONS: { label: string; value: TPaymentStatus | 'null' }[] = [
     {
@@ -17,7 +17,7 @@ const DEMO_OPTIONS: { label: string; value: TPaymentStatus | 'null' }[] = [
     },
     {
         label: 'В обработке',
-        value: "pending",
+        value: 'pending',
     },
     {
         label: 'Отмена',

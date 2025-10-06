@@ -22,4 +22,3 @@ export const LoadingStatus = styled(Typography)`
     color: ${defaultAbstractPalette.primary};
     margin-top: 24px;
 `;
-

@@ -24,15 +24,15 @@ export type TProps = {
     onDemoStatusChange: (status: TPaymentStatus | null) => void;
 };
 
-export const AppInner: FC<TProps> = ({
-    initialData,
-    tariffs,
-    events,
-    createOrder,
-    onDemoStatusChange,
-}) => {
-    const {handlers} = events;
-    const { handleUnavailable, handleLink: onLink, handleCheckout, handleError,handleHeightChange } = handlers;
+export const AppInner: FC<TProps> = ({ initialData, tariffs, events, createOrder, onDemoStatusChange }) => {
+    const { handlers } = events;
+    const {
+        handleUnavailable,
+        handleLink: onLink,
+        handleCheckout,
+        handleError,
+        handleHeightChange,
+    } = handlers;
     const setHeightElRef = useHeight(initialData.fullHeight, handleHeightChange);
     const isSuborder = useSuborderFlag(initialData);
     const navigate = useNavigate();
@@ -78,7 +78,7 @@ export const AppInner: FC<TProps> = ({
             const status = events.paymentStatus;
             events.resetPaymentStatus();
             navigate(ROUTES.paymentResult, {
-                state: { paymentStatus: status }
+                state: { paymentStatus: status },
             });
         }
     }, [navigate, events]);
@@ -87,18 +87,18 @@ export const AppInner: FC<TProps> = ({
 
     if (isCreatingOrder) {
         return (
-                <S.LoaderContainer>
-                    <InvoiceboxLoader width="120px" />
-                    <S.LoadingStatus variant="headline4" >
-                        Оформляем билет...
-                    </S.LoadingStatus>
-                </S.LoaderContainer>
+            <S.LoaderContainer>
+                <InvoiceboxLoader width="120px" />
+                <S.LoadingStatus variant="headline4">Оформляем билет...</S.LoadingStatus>
+            </S.LoaderContainer>
         );
     }
 
     return (
         <S.Wrapper ref={setHeightElRef}>
-            {process.env.NODE_ENV === 'development' && <DebugPaymentResultSwitcher onDemoStatusChange={onDemoStatusChange} />}
+            {process.env.NODE_ENV === 'development' && (
+                <DebugPaymentResultSwitcher onDemoStatusChange={onDemoStatusChange} />
+            )}
             <Form
                 key={formKey}
                 onSubmit={handleSubmit}

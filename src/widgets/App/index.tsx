@@ -13,13 +13,13 @@ export type TProps = {
     createOrder: TCreateOrderRequest;
 };
 
-
-
 export const App: FC<TProps> = ({ fetchTariffs, createOrder }) => {
     useConnection();
     const [demoStatus, setDemoStatus] = useState<TPaymentStatus | null>(null);
     const events = useEvents(demoStatus);
-    const { handlers: {handleError} } = events;
+    const {
+        handlers: { handleError },
+    } = events;
     const initialData = useInitialData();
     const { tariffs, isTariffsInitialized } = useTariffs(handleError, fetchTariffs);
 
