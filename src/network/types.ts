@@ -24,5 +24,5 @@ export type TCreateOrder = {
 
 export type TCreateOrderResponse = {
     url: string;
-    method: string; // unused
+    method: string;
 };
