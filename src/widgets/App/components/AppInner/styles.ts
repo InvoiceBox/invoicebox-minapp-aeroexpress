@@ -5,7 +5,6 @@ export const Wrapper = styled.div`
     background-color: ${defaultAbstractPalette.base};
     display: flex;
     flex-direction: column;
-    padding: 16px;
 `;
 
 export const LoaderContainer = styled.div`
@@ -15,7 +14,6 @@ export const LoaderContainer = styled.div`
     justify-content: center;
     flex-direction: column;
     padding: 48px 24px;
-    text-align: center;
 `;
 
 export const LoadingStatus = styled(Typography)`
