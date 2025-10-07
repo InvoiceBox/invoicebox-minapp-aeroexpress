@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
     justify-content: center;
     padding: 24px;
     text-align: center;
+    flex-grow: 1;
 `;
 
 export const Title = styled.div`
