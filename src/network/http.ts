@@ -42,10 +42,10 @@ export const createOrderRequest = (data: TCreateOrder): Promise<TCreateOrderResp
         body: JSON.stringify(snakecaseKeys(data)),
     })
         .then((response) => {
-            if (!response.ok) throw new Error(response.statusText);
+            if (!response.ok) throw new Error('Ошибка при оформлении заказа');
             return response;
         })
         .then((response) => response.json() as Promise<ICommonResponse<TCreateOrderResponse>>)
-        .then((response) => response.data);
+        .then((response) => response.data)
 
 export type TCreateOrderRequest = typeof createOrderRequest;

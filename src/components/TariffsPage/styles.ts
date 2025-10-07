@@ -3,7 +3,6 @@ import banerUrl from './assets/baner.svg';
 import { breakpoints } from '@invoicebox/ui';
 
 export const Wrapper = styled.div`
-    min-height: 100vh;
     background: linear-gradient(0deg, #f1f2f6 0%, #f1f2f6 100%), #f8f8f8;
     padding-bottom: 24px;
     box-sizing: border-box;
