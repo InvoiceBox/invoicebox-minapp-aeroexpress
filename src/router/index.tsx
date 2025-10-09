@@ -3,6 +3,7 @@ import { App } from '../widgets/App';
 import { createOrderRequest, fetchTariffsRequest } from '../network/http';
 import { LoadableTariffs } from '../widgets/LoadableTariffs';
 import { ROUTES } from './routes';
+import { PaymentResultPage } from '../components/PaymentResultPage';
 
 export const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ export const router = createBrowserRouter([
             {
                 path: ROUTES.tariffs,
                 element: <LoadableTariffs fetchTariffs={fetchTariffsRequest} />,
+            },
+            {
+                path: ROUTES.paymentResult,
+                element: <PaymentResultPage />,
             },
         ],
     },
