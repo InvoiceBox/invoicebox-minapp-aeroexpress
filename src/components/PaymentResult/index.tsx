@@ -26,18 +26,18 @@ export const PaymentResult: FC<TProps> = ({ status, onRetry }) => {
 
     const getContent = () => {
         switch (status) {
-            case 'paid':
-                return {
-                    title: 'Оплата прошла успешно!',
-                    message: 'Ваш билет оплачен.',
-                    buttonText: 'Оформить ещё',
-                    buttonAction: onRetry,
-                };
             case 'pending':
                 return {
                     title: 'Оплата в обработке',
                     message: 'Платёж передан в обработку',
                     buttonText: 'Продолжить',
+                    buttonAction: onRetry,
+                };
+            case 'completed':
+                return {
+                    title: 'Оплата прошла успешно!',
+                    message: 'Ваш билет оплачен. Вы можете оформить новый билет, либо выйти из модуля оплаты.',
+                    buttonText: 'Оформить ещё',
                     buttonAction: onRetry,
                 };
             case 'canceled':
@@ -46,6 +46,20 @@ export const PaymentResult: FC<TProps> = ({ status, onRetry }) => {
                     message:
                         'Вы отменили оплату. Вы можете попробовать еще раз или продолжить оформление других билетов.',
                     buttonText: 'Попробовать еще раз',
+                    buttonAction: onRetry,
+                };
+            case 'expired':
+                return {
+                    title: 'Истёк срок оплаты билета',
+                    message: 'Срок оплаты счёта истёк, оплата счёта невозможна',
+                    buttonText: 'Оформить новый билет',
+                    buttonAction: onRetry,
+                };
+            case 'hold':
+                return {
+                    title: 'Платёж обрабатывается',
+                    message: 'По счёту осуществляется удержание средств (блокировка средств)',
+                    buttonText: 'Оформить ещё',
                     buttonAction: onRetry,
                 };
             default:

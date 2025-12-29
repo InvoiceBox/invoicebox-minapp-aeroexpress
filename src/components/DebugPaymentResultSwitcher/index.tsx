@@ -12,16 +12,22 @@ const DEMO_OPTIONS: { label: string; value: TPaymentStatus | 'null' }[] = [
         value: 'null',
     },
     {
-        label: 'Успех',
-        value: 'paid',
-    },
-    {
-        label: 'В обработке',
+        label: 'В обработке (pending)',
         value: 'pending',
     },
     {
-        label: 'Отмена',
+        label: 'Оплачен (completed)',
+        value: 'completed',
+    },
+    {
+        label: 'Отменён (canceled)',
         value: 'canceled',
+    },   {
+        label: 'Просрочен (expired)',
+        value: 'expired',
+    },   {
+        label: 'Средства заблокированы (hold)',
+        value: 'hold',
     },
 ];
 
