@@ -2,36 +2,21 @@ import { useEffect, useState } from 'react';
 import { useUnupdatableHandler } from '@invoicebox/ui';
 import { TEvents } from '../../../hooks/useEvents';
 
+// В suborder-режиме (iframe) сообщаем хосту фактическую высоту контента.
+// В fullHeight-режиме (WebView) высотой управляет CSS (см. styles + index.css),
+// сообщения о высоте не нужны.
 export const useHeight = (fullHeight: boolean, onHeightChange: TEvents['handleHeightChange']) => {
     const [elRef, setElRef] = useState<HTMLDivElement | null>(null);
     const handleHeightChange = useUnupdatableHandler(onHeightChange);
 
     useEffect(() => {
-        if (!elRef) return;
-        if (fullHeight) return;
+        if (!elRef || fullHeight) return undefined;
         const observer = new ResizeObserver(() => {
             handleHeightChange(elRef.offsetHeight);
         });
         observer.observe(elRef);
         return () => observer.disconnect();
     }, [elRef, handleHeightChange, fullHeight]);
-
-    useEffect(() => {
-        if (!elRef) return;
-        if (!fullHeight) return;
-        const resets: (() => void)[] = [];
-        let currentElement: HTMLElement | null = elRef;
-        while (currentElement) {
-            const element: HTMLElement = currentElement;
-            const { height } = element.style;
-            resets.push(() => {
-                element.style.height = height;
-            });
-            element.style.height = '100%';
-            currentElement = element.parentElement;
-        }
-        return () => resets.forEach((reset) => reset());
-    }, [elRef, fullHeight]);
 
     return setElRef;
 };

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { App } from '.';
 import { FC, useEffect, useState } from 'react';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 import {
     TInitMessageFrom,
     TDoneMessageTo,
@@ -34,7 +34,7 @@ enum USE_CASES {
 const IFRAME_ID = 'IFRAME_ID';
 
 const sendMessage = (message: unknown) => {
-    var iframe = document.getElementById(IFRAME_ID) as HTMLIFrameElement;
+    const iframe = document.getElementById(IFRAME_ID) as HTMLIFrameElement;
     iframe.contentWindow!.postMessage(message, '*');
 };
 
@@ -56,7 +56,7 @@ const IFrame: FC<TIFrameProps> = ({
     useEffect(() => {
         const handleMessage = (event: MessageEvent) => {
             if (event.data.id !== initialUseCase) return;
-            const { id, ...data } = event.data as
+            const { ...data } = event.data as
                 | TInitMessageTo
                 | THeightMessageTo
                 | TLinkMessageTo
@@ -125,7 +125,7 @@ const IFrame: FC<TIFrameProps> = ({
     );
 };
 
-export const Success: StoryObj<{}> = {
+export const Success: StoryObj = {
     render: () => {
         return (
             <div style={{ padding: 15 }}>
@@ -142,7 +142,7 @@ export const Success: StoryObj<{}> = {
     },
 };
 
-export const Unavailable: StoryObj<{}> = {
+export const Unavailable: StoryObj = {
     render: () => {
         return (
             <div style={{ padding: 15 }}>
@@ -158,7 +158,7 @@ export const Unavailable: StoryObj<{}> = {
     },
 };
 
-export const FetchError: StoryObj<{}> = {
+export const FetchError: StoryObj = {
     render: () => {
         return (
             <div style={{ padding: 15 }}>
@@ -174,7 +174,7 @@ export const FetchError: StoryObj<{}> = {
     },
 };
 
-export const SubmitError: StoryObj<{}> = {
+export const SubmitError: StoryObj = {
     render: () => {
         return (
             <div style={{ padding: 15 }}>
@@ -191,7 +191,7 @@ export const SubmitError: StoryObj<{}> = {
     },
 };
 
-export const HeightByContainer: StoryObj<{}> = {
+export const HeightByContainer: StoryObj = {
     render: () => {
         return (
             <div style={{ padding: 15 }}>

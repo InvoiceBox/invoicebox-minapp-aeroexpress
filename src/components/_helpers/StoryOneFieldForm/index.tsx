@@ -1,13 +1,13 @@
 import React, { FC, ReactNode } from 'react';
 import { Form } from 'react-final-form';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 import { SecondaryButton } from '@invoicebox/ui';
 
 export const FIELD_NAME = 'field';
 
 type TProps = {
     children: ReactNode;
-    initialValue: any;
+    initialValue: unknown;
 };
 
 export const StoryOneFieldForm: FC<TProps> = ({ children, initialValue }) => (

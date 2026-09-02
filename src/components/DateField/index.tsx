@@ -1,12 +1,10 @@
 import { DateInput, TDateInputProps } from '@invoicebox/ui';
 import React, { FC } from 'react';
-import { Field, FieldProps } from 'react-final-form';
+import { Field } from 'react-final-form';
 
-import 'react-calendar/dist/Calendar.css';
-import '@invoicebox/ui/dist/components/common/Calendar/index.css';
-
-export type TProps = Omit<TDateInputProps, 'value' | 'onChange' | 'hasError' | 'onBlur' | 'onFocus'> &
-    Pick<FieldProps<any, any>, 'name'>;
+export type TProps = Omit<TDateInputProps, 'value' | 'onChange' | 'hasError' | 'onBlur' | 'onFocus'> & {
+    name: string;
+};
 
 export const DateField: FC<TProps> = ({ name, ...controlProps }) => (
     <Field<Date | null> name={name}>

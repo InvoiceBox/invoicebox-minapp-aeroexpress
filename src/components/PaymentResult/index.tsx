@@ -1,60 +1,54 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { TPaymentStatus } from '@invoicebox/minapp-sdk';
 import { SecondaryButton, Typography } from '@invoicebox/ui';
 import * as S from './styles';
 
 export type TProps = {
-    status: TPaymentStatus | null;
+    status: TPaymentStatus;
     onRetry?: () => void;
 };
 
+type TContent = { title: string; message: string; buttonText: string };
+
+// Статусы — из протокола (TPaymentStatus). Раньше здесь матчился несуществующий
+// 'paid', а настоящий 'completed' проваливался в null — успешная оплата
+// показывала пустой экран.
+const CONTENT: Record<TPaymentStatus, TContent> = {
+    completed: {
+        title: 'Оплата прошла успешно!',
+        message: 'Ваш билет оплачен.',
+        buttonText: 'Оформить ещё',
+    },
+    pending: {
+        title: 'Оплата в обработке',
+        message: 'Платёж передан в обработку.',
+        buttonText: 'Продолжить',
+    },
+    hold: {
+        title: 'Оплата в обработке',
+        message: 'Средства заблокированы, платёж ожидает подтверждения.',
+        buttonText: 'Продолжить',
+    },
+    canceled: {
+        title: 'Оплата отменена',
+        message:
+            'Вы отменили оплату. Вы можете попробовать еще раз или продолжить оформление других билетов.',
+        buttonText: 'Попробовать еще раз',
+    },
+    expired: {
+        title: 'Время оплаты истекло',
+        message: 'Счёт больше не действителен. Попробуйте оформить билет заново.',
+        buttonText: 'Попробовать еще раз',
+    },
+    unknown: {
+        title: 'Статус оплаты неизвестен',
+        message: 'Не удалось определить результат оплаты. Проверьте почту или попробуйте ещё раз.',
+        buttonText: 'Продолжить',
+    },
+};
+
 export const PaymentResult: FC<TProps> = ({ status, onRetry }) => {
-    if (!status)
-        return (
-            <S.Wrapper>
-                <S.Title>
-                    <Typography variant="headline3">Ошибка</Typography>
-                </S.Title>
-                <S.Message>
-                    <Typography variant="bodyMRegular">Неизвестный статус оплаты</Typography>
-                </S.Message>
-                <S.ButtonWrapper>
-                    <SecondaryButton onClick={onRetry}>Назад</SecondaryButton>
-                </S.ButtonWrapper>
-            </S.Wrapper>
-        );
-
-    const getContent = () => {
-        switch (status) {
-            case 'paid':
-                return {
-                    title: 'Оплата прошла успешно!',
-                    message: 'Ваш билет оплачен.',
-                    buttonText: 'Оформить ещё',
-                    buttonAction: onRetry,
-                };
-            case 'pending':
-                return {
-                    title: 'Оплата в обработке',
-                    message: 'Платёж передан в обработку',
-                    buttonText: 'Продолжить',
-                    buttonAction: onRetry,
-                };
-            case 'canceled':
-                return {
-                    title: 'Оплата отменена',
-                    message:
-                        'Вы отменили оплату. Вы можете попробовать еще раз или продолжить оформление других билетов.',
-                    buttonText: 'Попробовать еще раз',
-                    buttonAction: onRetry,
-                };
-            default:
-                return null;
-        }
-    };
-
-    const content = getContent();
-    if (!content) return null;
+    const content = CONTENT[status] ?? CONTENT.unknown;
 
     return (
         <S.Wrapper>
@@ -65,7 +59,7 @@ export const PaymentResult: FC<TProps> = ({ status, onRetry }) => {
                 <Typography variant="bodyMRegular">{content.message}</Typography>
             </S.Message>
             <S.ButtonWrapper>
-                <SecondaryButton onClick={content.buttonAction}>{content.buttonText}</SecondaryButton>
+                <SecondaryButton onClick={onRetry}>{content.buttonText}</SecondaryButton>
             </S.ButtonWrapper>
         </S.Wrapper>
     );

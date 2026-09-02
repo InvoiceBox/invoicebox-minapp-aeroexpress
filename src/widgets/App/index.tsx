@@ -1,11 +1,12 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { TPaymentStatus } from '@invoicebox/minapp-sdk';
 import { useTariffs } from './hooks/useTariffs';
 import { useConnection } from './hooks/useConnection';
 import { useEvents } from './hooks/useEvents';
 import { AppInner } from './components/AppInner';
 import { Loader } from '../../components/Loader';
+import { InitErrorScreen } from '../../components/InitErrorScreen';
 import { TCreateOrderRequest, TFetchTariffsRequest } from '../../network/http';
-import { TPaymentStatus } from '@invoicebox/minapp-sdk';
 import { useInitialData } from './hooks/useInitialData';
 
 export type TProps = {
@@ -20,15 +21,21 @@ export const App: FC<TProps> = ({ fetchTariffs, createOrder }) => {
     const {
         handlers: { handleError },
     } = events;
-    const initialData = useInitialData();
+    const initialDataState = useInitialData();
     const { tariffs, isTariffsInitialized } = useTariffs(handleError, fetchTariffs);
 
-    if (!isTariffsInitialized || !initialData) return <Loader />;
+    const isInitFailed = initialDataState.status === 'error';
+    useEffect(() => {
+        if (isInitFailed) handleError();
+    }, [isInitFailed, handleError]);
+
+    if (isInitFailed) return <InitErrorScreen />;
+    if (!isTariffsInitialized || initialDataState.status === 'loading') return <Loader />;
 
     return (
         <AppInner
             events={events}
-            initialData={initialData}
+            initialData={initialDataState.data}
             tariffs={tariffs}
             createOrder={createOrder}
             onDemoStatusChange={setDemoStatus}

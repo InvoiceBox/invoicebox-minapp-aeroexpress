@@ -1,4 +1,6 @@
-import React, { FC, MouseEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { FC, MouseEvent, useCallback, useMemo, useState } from 'react';
+import { PointsLoader } from '@invoicebox/ui';
+import { TPaymentStatus } from '@invoicebox/minapp-sdk';
 import { TInitialData } from '../../hooks/useInitialData';
 import { useHeight } from './hooks/useHeight';
 import { useSuborderFlag } from './hooks/useSuborderFlag';
@@ -8,13 +10,11 @@ import { TUseEventsResult } from '../../hooks/useEvents';
 import { TTariff } from '../../../../network/types';
 import { Form } from '../../../../components/Form';
 import { TCreateOrderRequest } from '../../../../network/http';
-import { ROUTES } from '../../../../router/routes';
+import { TARIFFS_PAGE_PATH } from '../../../../paths';
 import { envLogic } from '../../../../network/envLogic';
-import { TPaymentStatus } from '@invoicebox/minapp-sdk';
 import { DebugPaymentResultSwitcher } from '../../../../components/DebugPaymentResultSwitcher';
 import { TOutterForm } from '../../../../components/Form/types';
-import { InvoiceboxLoader } from '@invoicebox/ui';
-import { useNavigate } from 'react-router-dom';
+import { PaymentResult } from '../../../../components/PaymentResult';
 
 export type TProps = {
     initialData: TInitialData;
@@ -25,7 +25,7 @@ export type TProps = {
 };
 
 export const AppInner: FC<TProps> = ({ initialData, tariffs, events, createOrder, onDemoStatusChange }) => {
-    const { handlers } = events;
+    const { handlers, paymentStatus, resetPaymentStatus } = events;
     const {
         handleUnavailable,
         handleLink: onLink,
@@ -35,7 +35,6 @@ export const AppInner: FC<TProps> = ({ initialData, tariffs, events, createOrder
     } = handlers;
     const setHeightElRef = useHeight(initialData.fullHeight, handleHeightChange);
     const isSuborder = useSuborderFlag(initialData);
-    const navigate = useNavigate();
 
     const [isCreatingOrder, setIsCreatingOrder] = useState(false);
 
@@ -55,8 +54,8 @@ export const AppInner: FC<TProps> = ({ initialData, tariffs, events, createOrder
                     phone: userPhone,
                 });
                 handleCheckout(response.url);
-            } catch (error: any) {
-                handleError(error.message);
+            } catch (error) {
+                handleError(error instanceof Error ? error.message : undefined);
             } finally {
                 setIsCreatingOrder(false);
             }
@@ -67,35 +66,33 @@ export const AppInner: FC<TProps> = ({ initialData, tariffs, events, createOrder
     const handleLink = useCallback(
         (event: MouseEvent<HTMLAnchorElement>) => {
             event.preventDefault();
-            const { currentTarget } = event;
-            onLink(currentTarget.getAttribute('href') as string);
+            const href = event.currentTarget.getAttribute('href');
+            if (href) onLink(href);
         },
         [onLink],
     );
-
-    useEffect(() => {
-        if (events.paymentStatus) {
-            const status = events.paymentStatus;
-            events.resetPaymentStatus();
-            navigate(ROUTES.paymentResult, {
-                state: { paymentStatus: status },
-            });
-        }
-    }, [navigate, events]);
 
     const formKey = useMemo(() => tariffs.map(({ id }) => id).join(''), [tariffs]);
 
     if (isCreatingOrder) {
         return (
             <S.LoaderContainer>
-                <InvoiceboxLoader width="120px" />
+                <PointsLoader />
                 <S.LoadingStatus variant="headline4">Оформляем билет...</S.LoadingStatus>
             </S.LoaderContainer>
         );
     }
 
+    if (paymentStatus) {
+        return (
+            <S.Wrapper $fullHeight={initialData.fullHeight} ref={setHeightElRef}>
+                <PaymentResult status={paymentStatus} onRetry={resetPaymentStatus} />
+            </S.Wrapper>
+        );
+    }
+
     return (
-        <S.Wrapper ref={setHeightElRef}>
+        <S.Wrapper $fullHeight={initialData.fullHeight} ref={setHeightElRef}>
             {process.env.NODE_ENV === 'development' && (
                 <DebugPaymentResultSwitcher onDemoStatusChange={onDemoStatusChange} />
             )}
@@ -104,7 +101,7 @@ export const AppInner: FC<TProps> = ({ initialData, tariffs, events, createOrder
                 onSubmit={handleSubmit}
                 initialTariffs={tariffs}
                 onLink={handleLink}
-                tariffsHref={envLogic.appendCurrentOrigin(ROUTES.tariffs)}
+                tariffsHref={envLogic.appendCurrentOrigin(TARIFFS_PAGE_PATH)}
                 buttonText={isSuborder ? 'Добавить в заказ' : 'Купить билет'}
             />
         </S.Wrapper>

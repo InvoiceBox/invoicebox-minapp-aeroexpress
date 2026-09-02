@@ -23,3 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 *storybook.log
+# storybook build
+/storybook-static
+
+# ide
+/.idea
