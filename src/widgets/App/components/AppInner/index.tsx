@@ -102,7 +102,7 @@ export const AppInner: FC<TProps> = ({ initialData, tariffs, events, createOrder
                 initialTariffs={tariffs}
                 onLink={handleLink}
                 tariffsHref={envLogic.appendCurrentOrigin(TARIFFS_PAGE_PATH)}
-                buttonText={isSuborder ? 'Добавить в заказ' : 'Купить билет'}
+                buttonText={isSuborder ? 'Добавить в счёт' : 'Купить билет'}
             />
         </S.Wrapper>
     );

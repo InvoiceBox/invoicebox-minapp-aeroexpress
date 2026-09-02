@@ -23,6 +23,7 @@
         "dompurify": "^3.4.14",
         "final-form": "^4.20.10",
         "react": "^19.2.7",
+        "react-calendar": "^4.8.0",
         "react-dom": "^19.2.7",
         "react-final-form": "^6.5.9",
         "react-toastify": "^9.1.3",
@@ -55,6 +56,11 @@
         },
         "react-final-form": {
             "react": "$react"
+        },
+        "react-calendar": {
+            "react": "$react",
+            "react-dom": "$react-dom",
+            "@types/react": "$@types/react"
         }
     },
     "browserslist": [
