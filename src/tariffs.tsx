@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { PaletteProvider, defaultAbstractPalette } from '@invoicebox/ui';
 import { LoadableTariffs } from './widgets/LoadableTariffs';
 import { fetchTariffsRequest } from './network/http';
 
@@ -9,6 +10,8 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
     <React.StrictMode>
-        <LoadableTariffs fetchTariffs={fetchTariffsRequest} />
+        <PaletteProvider abstract={defaultAbstractPalette}>
+            <LoadableTariffs fetchTariffs={fetchTariffsRequest} />
+        </PaletteProvider>
     </React.StrictMode>,
 );
