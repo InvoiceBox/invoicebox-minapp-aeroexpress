@@ -8,6 +8,12 @@ export default defineConfig({
             index: './src/index.tsx',
             tariffs: './src/tariffs.tsx',
         },
+        // Явный define: без него незаданная при сборке переменная НЕ подменяется,
+        // в браузерном бандле остаётся голый process.env.* -> ReferenceError: process
+        // is not defined, мини-апп падает до init (I21-670, инцидент на stage).
+        define: {
+            'process.env.PUBLIC_API_ENV': JSON.stringify(process.env.PUBLIC_API_ENV ?? ''),
+        },
     },
     html: {
         title: 'Aeroexpress Mini App',
