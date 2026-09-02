@@ -1,10 +1,11 @@
 import { defaultAbstractPalette, Typography } from '@invoicebox/ui';
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ $fullHeight: boolean }>`
     background-color: ${defaultAbstractPalette.base};
     display: flex;
     flex-direction: column;
+    ${({ $fullHeight }) => ($fullHeight ? 'flex: 1; min-height: 100%;' : '')}
 `;
 
 export const LoaderContainer = styled.div`

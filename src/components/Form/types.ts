@@ -1,5 +1,3 @@
-import * as yup from 'yup';
-
 export const MIN_TICKETS_AMOUNT = 1;
 
 export enum FIELDS {
@@ -22,7 +20,9 @@ export type TOutterForm = {
 
 export const normalizeTo = ({ departDate, tariffId, ticketsCount }: TInnerForm): TOutterForm => {
     const toDigits = (num: number) => `0${num}`.slice(-2);
-    const normalizedDepartDate = `${new Date().getFullYear()}-${toDigits(departDate.getMonth() + 1)}-${toDigits(departDate.getDate())}`;
+    // Год — из выбранной даты, НЕ new Date().getFullYear(): глубина продаж до 270
+    // дней, декабрьская покупка январской поездки уезжала с прошедшим годом.
+    const normalizedDepartDate = `${departDate.getFullYear()}-${toDigits(departDate.getMonth() + 1)}-${toDigits(departDate.getDate())}`;
 
     return {
         departDate: normalizedDepartDate,
@@ -37,11 +37,21 @@ export const getInitialValues = (minDate: Date): TInnerForm => ({
     ticketsCount: MIN_TICKETS_AMOUNT,
 });
 
-export const validationSchema = yup.object().shape({
-    departDate: yup.date().required(),
-    tariffId: yup.number().required(),
-    ticketsCount: yup.number().min(MIN_TICKETS_AMOUNT).required(),
-});
+const REQUIRED_MESSAGE = 'Обязательное поле';
+
+export const validate = (values: TInnerForm): Partial<Record<FIELDS, string>> => {
+    const errors: Partial<Record<FIELDS, string>> = {};
+    if (!values.departDate) errors.departDate = REQUIRED_MESSAGE;
+    if (values.tariffId === null || values.tariffId === undefined) errors.tariffId = REQUIRED_MESSAGE;
+    if (
+        values.ticketsCount === null ||
+        values.ticketsCount === undefined ||
+        values.ticketsCount < MIN_TICKETS_AMOUNT
+    ) {
+        errors.ticketsCount = `Минимум ${MIN_TICKETS_AMOUNT}`;
+    }
+    return errors;
+};
 
 export type TTariff = {
     id: number;

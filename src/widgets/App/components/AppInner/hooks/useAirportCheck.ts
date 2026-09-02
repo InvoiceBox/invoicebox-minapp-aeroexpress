@@ -1,5 +1,5 @@
-import { invoiceboxMinapp } from '@invoicebox/minapp-sdk';
 import { useEffect } from 'react';
+import { getMinapp } from '../../../../../minappClient';
 import { TEvents } from '../../../hooks/useEvents';
 import { useUnupdatableHandler } from '@invoicebox/ui';
 
@@ -11,7 +11,7 @@ export const useAirportCheck = (onUnavailable: TEvents['handleUnavailable'], isS
 
     useEffect(() => {
         if (!isSuborder) return;
-        invoiceboxMinapp
+        getMinapp()
             .matchMetaDataValues(AIRPORT_KEY, MOSKOW_AIRPORTS)
             .then((isMatch) => {
                 if (!isMatch) handleUnavailable();

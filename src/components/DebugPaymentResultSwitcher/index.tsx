@@ -7,28 +7,13 @@ type TProps = {
 };
 
 const DEMO_OPTIONS: { label: string; value: TPaymentStatus | 'null' }[] = [
-    {
-        label: 'Не имитировать',
-        value: 'null',
-    },
-    {
-        label: 'В обработке (pending)',
-        value: 'pending',
-    },
-    {
-        label: 'Оплачен (completed)',
-        value: 'completed',
-    },
-    {
-        label: 'Отменён (canceled)',
-        value: 'canceled',
-    },   {
-        label: 'Просрочен (expired)',
-        value: 'expired',
-    },   {
-        label: 'Средства заблокированы (hold)',
-        value: 'hold',
-    },
+    { label: 'Не имитировать', value: 'null' },
+    { label: 'В обработке (pending)', value: 'pending' },
+    { label: 'Оплачен (completed)', value: 'completed' },
+    { label: 'Средства заблокированы (hold)', value: 'hold' },
+    { label: 'Отменён (canceled)', value: 'canceled' },
+    { label: 'Просрочен (expired)', value: 'expired' },
+    { label: 'Неизвестен (unknown)', value: 'unknown' },
 ];
 
 export const DebugPaymentResultSwitcher: FC<TProps> = ({ onDemoStatusChange }) => {
