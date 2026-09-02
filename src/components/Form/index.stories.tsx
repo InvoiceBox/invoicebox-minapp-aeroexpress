@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 import { Form, TProps } from '.';
 import { dummyTariffs } from '../../network/dummy';
 
@@ -13,7 +13,7 @@ const meta: Meta<typeof Form> = {
 export default meta;
 
 const args: TProps = {
-    onSubmit: async (...props: any[]) => {
+    onSubmit: async (...props: unknown[]) => {
         await new Promise((resolve) => {
             setTimeout(resolve, 1000);
         });

@@ -1,10 +1,9 @@
 import React, { FC, MouseEvent, useCallback, useMemo, useState } from 'react';
 import { Form as LibForm } from 'react-final-form';
-import { TInnerForm, TOutterForm, TTariff, getInitialValues, normalizeTo, validationSchema } from './types';
+import { TInnerForm, TOutterForm, TTariff, getInitialValues, normalizeTo, validate } from './types';
 import { logic } from './logic';
 import { FormInner } from './components/FormInner';
 import * as S from './styles';
-import useValidationSchema from './hooks/useValidationSchema';
 
 export type TProps = {
     onSubmit: (form: TOutterForm) => Promise<void>;
@@ -22,8 +21,6 @@ export const Form: FC<TProps> = ({ onSubmit, initialTariffs, onLink, tariffsHref
 
     const initialValues = useMemo(() => getInitialValues(minDate), [minDate]);
 
-    const validation = useValidationSchema(validationSchema);
-
     const submit = useCallback(
         (form: TInnerForm) => {
             setSubmittingFlag(true);
@@ -35,7 +32,7 @@ export const Form: FC<TProps> = ({ onSubmit, initialTariffs, onLink, tariffsHref
     );
 
     return (
-        <LibForm onSubmit={submit} initialValues={initialValues} validate={validation}>
+        <LibForm onSubmit={submit} initialValues={initialValues} validate={validate}>
             {({ handleSubmit }) => (
                 <S.Form onSubmit={handleSubmit}>
                     <FormInner

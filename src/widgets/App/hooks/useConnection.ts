@@ -1,16 +1,12 @@
-import { invoiceboxMinapp } from '@invoicebox/minapp-sdk';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
+import { getMinapp } from '../../../minappClient';
 
 export const useConnection = () => {
-    const connect = useCallback(() => {
-        if (invoiceboxMinapp.isConnected()) return;
-        invoiceboxMinapp.connect();
-    }, []);
-
     useEffect(() => {
-        connect();
+        const minapp = getMinapp();
+        minapp.connect();
         return () => {
-            invoiceboxMinapp.disconnect();
+            minapp.disconnect();
         };
-    }, [connect]);
+    }, []);
 };

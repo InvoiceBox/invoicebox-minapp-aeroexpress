@@ -1,5 +1,5 @@
 import { Typography, defaultAbstractPalette } from '@invoicebox/ui';
-import hexToRgba from 'hex-to-rgba';
+import { hexToRgba } from '../../utils/hexToRgba';
 import styled from 'styled-components';
 
 export const Wrapper = styled(Typography)`

@@ -1,13 +1,12 @@
 import React, { FC } from 'react';
-import { Field, FieldProps } from 'react-final-form';
+import { Field } from 'react-final-form';
 import { PositiveIntegerInput } from '@invoicebox/ui';
 import { TProps as TPositiveIntegerInputProps } from '@invoicebox/ui/dist/components/form/PositiveIntegerInput';
 
 export type TProps = Omit<
     TPositiveIntegerInputProps,
     'value' | 'onChange' | 'onBlur' | 'onFocus' | 'hasError'
-> &
-    Pick<FieldProps<any, any>, 'name'>;
+> & { name: string };
 
 export const PositiveIntegerField: FC<TProps> = ({ name, ...controlProps }) => (
     <Field<number | null> name={name}>

@@ -1,37 +1,46 @@
-import { invoiceboxMinapp, TPaymentStatus } from '@invoicebox/minapp-sdk';
-import { useState } from 'react';
+import { TPaymentStatus } from '@invoicebox/minapp-sdk';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { getMinapp } from '../../../minappClient';
 
-const getHandler = <THandler extends (...props: any[]) => void>(handler: THandler) => {
-    const newHandler = (...props: any[]) => {
-        if (invoiceboxMinapp.isConnected()) handler(...props);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const guard = <THandler extends (...args: any[]) => void>(handler: THandler): THandler => {
+    const guarded = (...args: unknown[]) => {
+        if (getMinapp().isConnected()) handler(...args);
     };
-    return newHandler as THandler;
+    return guarded as THandler;
 };
 
-const getHandlers = (demoStatus?: TPaymentStatus | null) => ({
-    handleError: getHandler(invoiceboxMinapp.onError.bind(invoiceboxMinapp)),
-    handleHeightChange: getHandler(invoiceboxMinapp.onHeightChange.bind(invoiceboxMinapp)),
-    handleUnavailable: getHandler(invoiceboxMinapp.onUnavailable.bind(invoiceboxMinapp)),
-    handleDone: getHandler(invoiceboxMinapp.onDone.bind(invoiceboxMinapp)),
-    handleCheckout: getHandler(invoiceboxMinapp.onCheckout.bind(invoiceboxMinapp)),
-    handleLink: getHandler(invoiceboxMinapp.onLink.bind(invoiceboxMinapp)),
-    handlePaymentResult: getHandler((callback: (status: TPaymentStatus) => void) => {
-        invoiceboxMinapp.onPaymentResult((status: TPaymentStatus) => {
-            callback(demoStatus ?? status);
-        });
-    }),
-});
-
-export type TEvents = ReturnType<typeof getHandlers>;
 export type TUseEventsResult = ReturnType<typeof useEvents>;
+export type TEvents = TUseEventsResult['handlers'];
 
 export const useEvents = (demoStatus?: TPaymentStatus | null) => {
     const [paymentStatus, setPaymentStatus] = useState<TPaymentStatus | null>(null);
+    const resetPaymentStatus = useCallback(() => setPaymentStatus(null), []);
 
-    const resetPaymentStatus = () => setPaymentStatus(null);
+    const demoStatusRef = useRef<TPaymentStatus | null>(demoStatus ?? null);
+    useEffect(() => {
+        demoStatusRef.current = demoStatus ?? null;
+    }, [demoStatus]);
 
-    const handlers = getHandlers(demoStatus);
-    handlers.handlePaymentResult(setPaymentStatus);
+    const handlers = useMemo(() => {
+        const minapp = getMinapp();
+        return {
+            handleError: guard((message?: string) => minapp.onError(message)),
+            handleHeightChange: guard((height: number) => minapp.onHeightChange(height)),
+            handleUnavailable: guard(() => minapp.onUnavailable()),
+            handleDone: guard((paymentUrl?: string | null) => minapp.onDone(paymentUrl)),
+            handleCheckout: guard((paymentUrl: string) => minapp.onCheckout(paymentUrl)),
+            handleLink: guard((href: string) => minapp.onLink(href)),
+        };
+    }, []);
+
+    useEffect(
+        () =>
+            getMinapp().onPaymentResult((status) => {
+                setPaymentStatus(demoStatusRef.current ?? status);
+            }),
+        [],
+    );
 
     return { handlers, paymentStatus, resetPaymentStatus };
 };
