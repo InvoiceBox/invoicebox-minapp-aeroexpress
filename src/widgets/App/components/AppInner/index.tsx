@@ -30,6 +30,7 @@ export const AppInner: FC<TProps> = ({ initialData, tariffs, events, createOrder
         handleUnavailable,
         handleLink: onLink,
         handleCheckout,
+        handleDone,
         handleError,
         handleHeightChange,
     } = handlers;
@@ -53,14 +54,21 @@ export const AppInner: FC<TProps> = ({ initialData, tariffs, events, createOrder
                     email: userEmail,
                     phone: userPhone,
                 });
-                handleCheckout(response.url);
+                // Суборлер (iframe платёжной страницы): заказ добавляется в общий счёт
+                // и оплачивается вместе с основным — сообщаем done. Checkout с внешней
+                // оплатой по ссылке — только для самостоятельного заказа (WebView).
+                if (isSuborder) {
+                    handleDone();
+                } else {
+                    handleCheckout(response.url);
+                }
             } catch (error) {
                 handleError(error instanceof Error ? error.message : undefined);
             } finally {
                 setIsCreatingOrder(false);
             }
         },
-        [initialData, createOrder, handleCheckout, handleError],
+        [initialData, createOrder, isSuborder, handleDone, handleCheckout, handleError],
     );
 
     const handleLink = useCallback(
