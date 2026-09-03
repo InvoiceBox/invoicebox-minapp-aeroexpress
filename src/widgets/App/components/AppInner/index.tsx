@@ -5,6 +5,7 @@ import { TInitialData } from '../../hooks/useInitialData';
 import { useHeight } from './hooks/useHeight';
 import { useSuborderFlag } from './hooks/useSuborderFlag';
 import { useAirportCheck } from './hooks/useAirportCheck';
+import { useAlreadyPurchasedCheck } from './hooks/useAlreadyPurchasedCheck';
 import * as S from './styles';
 import { TUseEventsResult } from '../../hooks/useEvents';
 import { TTariff } from '../../../../network/types';
@@ -40,6 +41,7 @@ export const AppInner: FC<TProps> = ({ initialData, tariffs, events, createOrder
     const [isCreatingOrder, setIsCreatingOrder] = useState(false);
 
     useAirportCheck(handleUnavailable, isSuborder);
+    useAlreadyPurchasedCheck(handleUnavailable, isSuborder);
 
     const handleSubmit = useCallback(
         async (form: TOutterForm) => {
