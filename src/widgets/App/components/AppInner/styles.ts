@@ -5,6 +5,8 @@ export const Wrapper = styled.div<{ $fullHeight: boolean }>`
     background-color: ${defaultAbstractPalette.base};
     display: flex;
     flex-direction: column;
+    /* рамки полей — CSS outline (рисуется наружу): без отступа режутся краями iframe */
+    padding: 2px;
     ${({ $fullHeight }) => ($fullHeight ? 'flex: 1; min-height: 100%;' : '')}
 `;
 

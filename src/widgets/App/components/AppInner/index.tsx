@@ -88,7 +88,9 @@ export const AppInner: FC<TProps> = ({ initialData, tariffs, events, createOrder
         return (
             <S.LoaderContainer>
                 <PointsLoader />
-                <S.LoadingStatus variant="headline4">Оформляем билет...</S.LoadingStatus>
+                <S.LoadingStatus variant="headline4">
+                    {isSuborder ? 'Добавляем заказ в счёт…' : 'Оформляем билет…'}
+                </S.LoadingStatus>
             </S.LoaderContainer>
         );
     }

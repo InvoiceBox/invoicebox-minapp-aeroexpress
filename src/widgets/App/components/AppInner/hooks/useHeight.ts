@@ -6,10 +6,14 @@ import { TEvents } from '../../../hooks/useEvents';
 // обрезаются нижней границей, т.к. высота iframe = высоте контента. Учитываем их
 // нижний край в сообщаемой хосту высоте, пока поповер открыт.
 const getFixedLayersBottom = (contentEl: HTMLElement): number => {
-    const bottoms = Array.from(document.body.children)
+    const layers = Array.from(document.body.children)
         .filter((el): el is HTMLElement => el instanceof HTMLElement && !el.contains(contentEl))
-        .filter((el) => getComputedStyle(el).position === 'fixed')
-        .map((el) => el.getBoundingClientRect().bottom);
+        .filter((el) => getComputedStyle(el).position === 'fixed');
+    // Меряем содержимое слоя, а не его рамку: у поповеров кита fixed-обёртка
+    // схлопнута, а само меню — absolute внутри неё и свисает ниже.
+    const bottoms = layers.flatMap((layer) =>
+        [layer, ...Array.from(layer.querySelectorAll('*'))].map((el) => el.getBoundingClientRect().bottom),
+    );
     return Math.max(0, ...bottoms);
 };
 
